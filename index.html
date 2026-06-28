@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Français TEF">
+<meta name="theme-color" content="#F4F1EB">
+<meta name="format-detection" content="telephone=no">
+<title>Français pour le TEF Canada — Zéro → B2 (NCLC 7+)</title>
+<style>
+  :root{
+    --paper:#F4F1EB; --card:#FFFFFF; --ink:#1F2340; --ink-2:#5A5F7D; --ink-3:#8A8FA8;
+    --line:#E6E0D4; --accent:#C81E4E; --accent-soft:#FBE7EC; --accent-ink:#9A1239;
+    --slate:#2C5E73; --slate-soft:#E8F0F2; --gold:#C8902E; --goldsoft:#FFF8F0;
+    --shadow:0 1px 2px rgba(31,35,64,.04),0 6px 18px rgba(31,35,64,.06);
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --top:58px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+  button{font-family:inherit}
+  a{color:inherit}
+
+  /* ---------- Top bar ---------- */
+  .topbar{position:sticky;top:0;z-index:60;background:rgba(244,241,235,.94);backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid var(--line);
+    display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;padding:7px 14px;min-height:var(--top)}
+  .menu-btn{display:none;border:1px solid var(--line);background:var(--card);border-radius:10px;font-size:18px;line-height:1;padding:7px 10px;cursor:pointer;color:var(--ink)}
+  .brand{text-align:center;min-width:0}
+  .brand .eyebrow{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:700;display:block}
+  .brand h1{font-family:var(--serif);font-weight:600;font-size:18px;line-height:1.05;margin:1px 0 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .brand h1 em{font-style:italic;color:var(--accent)}
+  .searchwrap{justify-self:end;position:relative;width:min(300px,44vw)}
+  .searchwrap input{width:100%;font-family:var(--sans);font-size:13.5px;padding:8px 30px 8px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink)}
+  .searchwrap .x{position:absolute;right:8px;top:50%;transform:translateY(-50%);border:0;background:transparent;color:var(--ink-3);font-size:17px;cursor:pointer;display:none}
+  input:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  /* ---------- Layout ---------- */
+  .layout{display:grid;grid-template-columns:248px 1fr;max-width:1180px;margin:0 auto;align-items:start}
+  .sidebar{position:sticky;top:var(--top);height:calc(100vh - var(--top));overflow-y:auto;border-right:1px solid var(--line);padding:14px 12px 40px;-webkit-overflow-scrolling:touch}
+  .sidebar::-webkit-scrollbar{width:8px}.sidebar::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
+  .main{min-width:0;padding:8px 16px 90px}
+  .scrim{display:none}
+
+  .sb-sec{padding:10px 4px;border-bottom:1px solid var(--line)}
+  .sb-h{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:700;margin:0 0 8px}
+  .controls{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+  .pill{font-size:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:7px 11px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+  .pill:hover{border-color:var(--accent)}
+  .pill.block{display:flex;width:100%;justify-content:center;margin-top:7px}
+  .pill[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .fav-pill.on{background:#FFF6DC;border-color:#E8B100;color:#7a5b00}
+  #speakBtn{background:var(--slate-soft);border-color:#CFE0E4;color:#1d4a5a}
+  .seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--card)}
+  .seg button{border:0;background:transparent;font-size:12px;padding:7px 11px;cursor:pointer;color:var(--ink-2)}
+  .seg button[aria-pressed="true"]{background:var(--accent);color:#fff;font-weight:600}
+  .vstatus{font-size:11px;color:var(--ink-3);display:block;width:100%}
+  .vstatus b{color:var(--slate);font-weight:600}
+
+  /* ---------- Sidebar nav ---------- */
+  .sb-nav{padding-top:12px}
+  .sb-nav .st{font-size:11px;letter-spacing:.04em;color:var(--accent);font-weight:700;margin:14px 4px 5px;text-transform:uppercase}
+  .sb-nav a{display:block;font-size:12.5px;text-decoration:none;color:var(--ink-2);padding:5px 8px;border-radius:8px;line-height:1.25}
+  .sb-nav a:hover{background:var(--accent-soft);color:var(--ink)}
+
+  /* ---------- Content ---------- */
+  .hint{font-size:11.5px;color:var(--ink-3);text-align:center;min-height:15px;margin:4px 0 0}
+  .parthead{font-family:var(--serif);font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:26px 0 2px;border-bottom:2px solid var(--accent);padding-bottom:5px}
+  .parthead .psub{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:0;text-transform:none;color:var(--ink-3);font-weight:400;margin-top:3px}
+
+  .deck{margin-top:12px;border:1px solid var(--line);border-radius:14px;background:var(--card);box-shadow:var(--shadow);overflow:hidden;scroll-margin-top:74px}
+  .deck-head{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;background:transparent;cursor:pointer;padding:13px 15px}
+  .deck-head .num{font-family:var(--serif);font-style:italic;font-weight:700;color:var(--accent);font-size:16px;min-width:20px}
+  .deck-head .tt{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--ink);line-height:1.15}
+  .deck-head .ttf{font-size:11.5px;color:var(--ink-3);font-style:italic;display:block;margin-top:1px}
+  .deck-head .cnt{margin-left:auto;font-size:11px;color:var(--ink-3);background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:2px 8px;white-space:nowrap}
+  .deck-head .chev{margin-left:8px;color:var(--accent);transition:transform .2s;flex:0 0 auto}
+  .deck.open .deck-head .chev{transform:rotate(90deg)}
+  .deck-body{display:none;padding:4px 12px 14px}
+  .deck.open .deck-body{display:block}
+
+  .theory{background:var(--slate-soft);border:1px solid #CFE0E4;border-radius:10px;padding:9px 12px;margin:8px 4px;font-size:12.5px;color:#244;line-height:1.5}
+  .theory b{color:var(--slate)}
+  .tip{background:#F3FBF4;border:1px solid #CDE9D3;border-left:4px solid #3FA45B;border-radius:10px;padding:9px 12px;margin:9px 4px;font-size:12.5px;color:#2c5238}
+  .tip b{color:#2c7a44}
+  .blurb{font-size:12.5px;color:var(--ink-2);margin:6px 4px 8px}
+  .subh{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);font-weight:700;margin:16px 4px 8px}
+  .note{background:var(--goldsoft);border:1px solid #F0E4D0;border-left:4px solid var(--gold);border-radius:10px;padding:10px 13px;margin:12px 4px;font-size:12.5px;color:#5a4a2e}
+  .note b{color:#9a6b15}
+  .tef{background:var(--slate-soft);border:1px solid #CFE0E4;border-left:4px solid var(--slate);border-radius:10px;padding:10px 13px;margin:12px 4px;font-size:12.5px;color:#244}
+  .tef b{color:var(--slate)}
+  .key{font-size:12px;color:var(--ink-2);background:var(--paper);border:1px dashed var(--line);border-radius:10px;padding:9px 12px;margin:6px 4px}
+  .key code{background:var(--accent-soft);color:var(--accent-ink);padding:1px 5px;border-radius:5px}
+  .gloss{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin:6px 4px;font-size:13px;color:var(--ink-2)}
+  .gloss b{color:var(--ink);font-family:var(--serif);font-size:14.5px}
+  .gloss .ex{display:block;color:var(--ink-3);font-size:11.5px;margin-top:3px;font-style:italic}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+  /* conjugation */
+  .conj{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:6px 0}
+  .conj .v{display:flex;align-items:baseline;gap:9px;padding:10px 13px;background:var(--accent-soft);border-bottom:1px solid var(--line);cursor:pointer}
+  .conj .v .vi{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--accent-ink)}
+  .conj .v .vp{font-size:11px;color:var(--accent-ink)}
+  .conj .v .ve{font-size:12px;color:var(--ink-2);margin-left:auto}
+  .conj ul{list-style:none;margin:0;padding:5px}
+  .conj li{display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:8px;cursor:pointer}
+  .conj li:hover{background:var(--accent-soft)}
+  .conj li .spk{width:14px;height:14px;color:var(--accent);flex:0 0 auto;opacity:.8}
+  .conj li .frm{font-family:var(--serif);font-size:15.5px;font-weight:600;min-width:118px}
+  .conj li .frp{font-size:11px;color:var(--accent-ink);min-width:84px}
+  .conj li .fre{font-size:12px;color:var(--ink-2)}
+  body.rev .conj li .fre{opacity:0}
+  body.rev .conj li.show .fre{opacity:1}
+
+  /* speaking trainer */
+  .spk-wrap{padding:4px 2px}
+  .spk-day{font-size:12.5px;color:var(--ink-2);margin:4px 4px 10px}
+  .spk-row{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:10px 12px;margin:8px 0}
+  .spk-row.done{border-color:#CDE9D3;background:#FAFEFB}
+  .spk-w{font-family:var(--serif);font-size:18px;font-weight:600}
+  .spk-e{font-size:12px;color:var(--ink-3);margin-left:8px}
+  .spk-btns{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .spk-btns button{font-size:12px;border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:6px 10px;cursor:pointer;color:var(--ink)}
+  .spk-btns button:hover{border-color:var(--accent)}
+  .rate b{display:inline-block;min-width:34px;text-align:right;color:var(--slate);font-weight:700}
+  .spk-score{font-size:13px;color:var(--slate);font-weight:600;margin:10px 4px}
+  .spk-hist{margin-top:14px}
+  .spk-hist .h{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);border-radius:10px;padding:8px 11px;margin:6px 0;font-size:12.5px;background:var(--card)}
+  .spk-hist .h b{color:var(--accent)}
+
+  #empty{display:none;text-align:center;color:var(--ink-3);font-size:13px;padding:30px 10px}
+  footer{margin-top:34px;padding-top:14px;border-top:1px solid var(--line);font-size:11.5px;color:var(--ink-3);text-align:center}
+
+  @keyframes ripple{from{box-shadow:0 0 0 0 rgba(200,30,78,.28)}to{box-shadow:0 0 0 12px rgba(200,30,78,0)}}
+  .ripple{animation:ripple .45s ease-out}
+
+  @media (max-width:880px){
+    .layout{grid-template-columns:1fr}
+    .menu-btn{display:inline-block}
+    .brand h1{font-size:16px}
+    .sidebar{position:fixed;top:0;left:0;height:100vh;width:284px;max-width:84vw;z-index:80;background:var(--paper);border-right:1px solid var(--line);transform:translateX(-100%);transition:transform .22s ease;padding-top:16px;box-shadow:0 0 40px rgba(0,0,0,.18)}
+    body.nav-open .sidebar{transform:translateX(0)}
+    .scrim{display:block;position:fixed;inset:0;background:rgba(20,20,30,.4);z-index:70;opacity:0;pointer-events:none;transition:opacity .22s}
+    body.nav-open .scrim{opacity:1;pointer-events:auto}
+    .main{padding:8px 13px 90px}
+  }
+  @media (prefers-reduced-motion: reduce){.ripple{animation:none}*{scroll-behavior:auto!important;transition:none!important}}
+
+  /* ---- bilingual labels: English by default, French only in 100% mode ---- */
+  .ui-fr{display:none}
+  body.h-all .ui-en{display:none}
+  body.h-all .ui-fr{display:inline}
+
+  /* ---- ~30% bolder text throughout ---- */
+  body{font-weight:480}
+  .brand h1{font-weight:700}
+  .card .fr,.deck-head .tt,.conj li .frm,.conj .v .vi,.spk-w{font-weight:800}
+  .card .en,.card .ph,.theory,.tip,.note,.tef,.key,.gloss,.blurb,.sb-nav a,.seg button,.pill,.vstatus,.deck-head .ttf,.spk-e{font-weight:600}
+  .subh,.sb-h,.parthead,.gloss b{font-weight:800}
+  .note b,.tef b,.theory b,.tip b,.key code,.gloss b,.card .en b{font-weight:800}
+
+  /* ---- topic boxes: each rule/sub-section is a bordered card ---- */
+  .topic{border:1.5px solid var(--line);border-radius:16px;background:var(--card);box-shadow:var(--shadow);padding:6px 16px 16px;margin:20px 0}
+  .topic-body{padding-top:2px}
+  .topic .subh{font-family:var(--serif);font-size:clamp(24px,5.2vw,33px);line-height:1.12;letter-spacing:0;text-transform:none;color:var(--accent);font-weight:800;margin:14px 0 12px;padding:0 0 10px;border-bottom:2px solid var(--accent-soft)}
+  /* sub-headers anywhere else (e.g. daily-10) also clearly bigger */
+  .subh{font-size:clamp(20px,4.4vw,26px);letter-spacing:0;text-transform:none;font-family:var(--serif);color:var(--slate);font-weight:800;margin:14px 4px 8px}
+  .topic .cards{margin-top:4px}
+  .topic .note,.topic .key,.topic .tef{margin-left:0;margin-right:0}
+
+  /* ---- daily-10 widget ---- */
+  .spk-row{display:flex;align-items:baseline;gap:10px;border:1px solid var(--line);border-radius:12px;background:var(--card);padding:10px 13px;margin:7px 0}
+  .spk-w{font-family:var(--serif);font-size:19px;cursor:pointer}
+  .spk-e{font-size:12.5px;color:var(--ink-3)}
+  .spk-actions{display:flex;flex-wrap:wrap;gap:8px;margin:14px 4px 6px}
+  .spk-actions .pill{font-weight:700}
+  .spk-actions .gpt{background:#10a37f;border-color:#0e8f6f;color:#fff;text-decoration:none}
+  .spk-prompt{font-size:11.5px;color:var(--ink-3);background:var(--paper);border:1px dashed var(--line);border-radius:10px;padding:9px 12px;margin:6px 4px;line-height:1.5;word-break:break-word}
+  .spk-hist .h{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);border-radius:10px;padding:8px 11px;margin:6px 0;font-size:12.5px;background:var(--card)}
+  .spk-hist .hbtns{white-space:nowrap}
+  .mini{display:inline-block;border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:3px 8px;cursor:pointer;text-decoration:none;color:var(--ink);font-size:13px}
+  .mini:hover{border-color:var(--accent)}
+
+  /* ---- scaling / cross-device polish (no overflow-x clip — it breaks the sticky sidebar) ---- */
+  .card .fr,.card .en,.spk-prompt,.note,.theory,.tip,.tef,.key,.topic .subh{overflow-wrap:anywhere}
+  @media (max-width:480px){
+    .cards{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+    .brand .eyebrow{display:none}
+    .brand h1{font-size:14.5px}
+    .searchwrap{width:min(220px,40vw)}
+  }
+</style>
+</head>
+<body>
+<div id="boot" style="position:fixed;top:0;left:0;right:0;z-index:99999;background:#9A1239;color:#fff;font:13px/1.45 -apple-system,Segoe UI,Roboto,sans-serif;padding:7px 12px;text-align:center">Si ce message rouge reste affiché, le JavaScript ne s’exécute pas dans ce navigateur.</div>
+<script>try{document.getElementById('boot').textContent='JavaScript actif — chargement de l’application…';}catch(e){}</script>
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="Menu / sections">☰</button>
+  <div class="brand">
+    <span class="eyebrow">Zéro → B2 · NCLC 7+</span>
+    <h1>Français <em>pour le TEF Canada</em></h1>
+  </div>
+  <div class="searchwrap">
+    <input id="search" type="search" placeholder="Rechercher (fr / en)…" autocomplete="off" autocapitalize="off" spellcheck="false">
+    <button class="x" id="searchx" aria-label="Effacer">×</button>
+  </div>
+</header>
+<div class="scrim" id="scrim"></div>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-sec">
+      <div class="sb-h"><span class="ui-en">Voice &amp; audio</span><span class="ui-fr">Voix &amp; audio</span></div>
+      <div class="controls" id="controls">
+        <div class="seg" role="group" aria-label="Voice">
+          <button id="vx-f" aria-pressed="true">♀ <span class="ui-en">Female</span><span class="ui-fr">Femme</span></button>
+          <button id="vx-m" aria-pressed="false">♂ <span class="ui-en">Male</span><span class="ui-fr">Homme</span></button>
+        </div>
+        <div class="seg" role="group" aria-label="Speed">
+          <button id="spd-norm" aria-pressed="true"><span class="ui-en">Normal</span><span class="ui-fr">Normale</span></button>
+          <button id="spd-slow" aria-pressed="false"><span class="ui-en">Slow</span><span class="ui-fr">Lente</span></button>
+        </div>
+        <button class="pill" id="voicetoggle" aria-label="Voice source">⇄ <span class="ui-en">Source</span><span class="ui-fr">Source</span></button>
+        <span class="vstatus" id="voicestatus">Voix : …</span>
+      </div>
+    </div>
+    <div class="sb-sec">
+      <div class="sb-h"><span class="ui-en">English display</span><span class="ui-fr">Affichage anglais</span></div>
+      <button class="pill block" id="tg-tr" aria-pressed="false"><span class="ui-en">Hide translations</span><span class="ui-fr">Masquer la traduction</span></button>
+      <button class="pill block" id="tg-ex" aria-pressed="false"><span class="ui-en">Hide explanations</span><span class="ui-fr">Masquer les explications</span></button>
+      <button class="pill block" id="tg-all" aria-pressed="false"><span class="ui-en">100% French (all)</span><span class="ui-fr">100&nbsp;% français</span></button>
+    </div>
+    <div class="sb-sec">
+      <div class="sb-h"><span class="ui-en">Study</span><span class="ui-fr">Étude</span></div>
+      <button class="pill block fav-pill" id="favbtn"><span class="ui-en">★ Favorites</span><span class="ui-fr">★ Favoris</span><span id="favn"></span></button>
+      <button class="pill block" id="speakBtn">🗓️ <span class="ui-en">10 words today</span><span class="ui-fr">10 mots du jour</span></button>
+    </div>
+    <nav class="sb-nav" id="decknav" aria-label="Sections"></nav>
+  </aside>
+  <main class="main">
+    <p class="hint" id="hint"></p>
+    <div id="results" style="display:none"></div>
+    <div id="favview" style="display:none"></div>
+    <div id="app"></div>
+    <div id="empty">Aucun résultat. / No matches.</div>
+    <footer>Français pour le TEF Canada — base d’étude vers le NCLC&nbsp;7+.<br>Tap-to-hear · works offline if a French voice is installed on your device.</footer>
+  </main>
+</div>
+<script>
+/* ============ FOUNDATIONS + GRAMMAR (with phonetics) ============ */
+/* card: {f, p?, e}  ·  conj: {inf,infp,e,rows:[{f,p,e}]} */
+window.LESSON = [
+
+{id:"alpha",part:"I. Les bases",num:1,en:"The Alphabet",fr:"L’alphabet",
+ blurb:"26 letters. The names matter for spelling things aloud (your name, addresses).",
+ secs:[{t:"chip",tight:1,cards:[
+  {f:"a",p:"ah"},{f:"b",p:"bay"},{f:"c",p:"say"},{f:"d",p:"day"},{f:"e",p:"uh"},{f:"f",p:"eff"},
+  {f:"g",p:"zhay"},{f:"h",p:"ash"},{f:"i",p:"ee"},{f:"j",p:"zhee"},{f:"k",p:"kah"},{f:"l",p:"ell"},
+  {f:"m",p:"emm"},{f:"n",p:"enn"},{f:"o",p:"oh"},{f:"p",p:"pay"},{f:"q",p:"kü"},{f:"r",p:"air"},
+  {f:"s",p:"ess"},{f:"t",p:"tay"},{f:"u",p:"ü"},{f:"v",p:"vay"},{f:"w",p:"doo-bluh-vay"},{f:"x",p:"eeks"},
+  {f:"y",p:"ee-grek"},{f:"z",p:"zed"}]}]},
+
+{id:"sons",part:"I. Les bases",num:2,en:"The Sound System",fr:"Les sons",
+ blurb:"French spelling is consistent — learn these and you can pronounce almost anything. The most important module.",
+ secs:[
+  {t:"key",html:'Key: <code>ZH</code>=“s” in measure · <code>ü</code>=tight rounded ee · <code>(n)</code>=nasal (air through nose, don’t say the n). CAPS = lightly stressed syllable.'},
+  {t:"subh",h:"Vowels — les voyelles"},
+  {t:"chip",cards:[
+   {f:"a",p:"ah",e:"papa, ami"},{f:"é",p:"ay",e:"café, été"},{f:"è / ê",p:"eh",e:"père, fête"},
+   {f:"i",p:"ee",e:"merci, ici"},{f:"o",p:"oh",e:"mot, photo"},{f:"u",p:"ü",e:"tu, rue"},
+   {f:"ou",p:"oo",e:"vous, jour"},{f:"oi",p:"wah",e:"moi, trois"},{f:"au / eau",p:"oh",e:"eau, beau"},
+   {f:"ai / ei",p:"eh",e:"mais, neige"},{f:"eu",p:"uh",e:"deux, peu"}]},
+  {t:"subh",h:"Nasal vowels — les voyelles nasales (tricky!)"},
+  {t:"chip",cards:[
+   {f:"an / en",p:"ah(n)",e:"France, enfant"},{f:"on / om",p:"oh(n)",e:"bonjour, nom"},
+   {f:"in / ain / ein",p:"a(n)",e:"vin, pain, plein"},{f:"un",p:"uh(n)",e:"un, lundi"},
+   {f:"ien",p:"ya(n)",e:"bien, combien"}]},
+  {t:"subh",h:"Consonants — les consonnes"},
+  {t:"chip",cards:[
+   {f:"r",p:"throat R",e:"rouge, Paris"},{f:"j / ge",p:"ZH",e:"je, jour, manger"},
+   {f:"ch",p:"SH",e:"chat, chaud"},{f:"gn",p:"ny",e:"montagne"},{f:"ill",p:"ee-y",e:"fille, famille"},
+   {f:"qu",p:"k",e:"qui, quatre"},{f:"h",p:"silent",e:"heure, hôtel"},{f:"ç",p:"soft s",e:"français, ça"}]},
+  {t:"subh",h:"Silent letters & liaison"},
+  {t:"chip",cards:[
+   {f:"petit",p:"puh-TEE",e:"final t silent"},{f:"grand",p:"grah(n)",e:"final d silent"},
+   {f:"vous",p:"voo",e:"final s silent"},{f:"vous avez",p:"voo-za-VAY",e:"liaison s→z"},
+   {f:"les amis",p:"lay-za-MEE",e:"liaison s→z"}]},
+  {t:"tef",html:'<b>TEF link:</b> Listening audio plays once at natural speed — training your ear here is what stops fast French sounding like a blur.'}
+ ]},
+
+{id:"nombres",part:"I. Les bases",num:3,en:"Numbers",fr:"Les nombres",
+ blurb:"Constant in prices, ages, dates, phone numbers — and common in listening.",
+ secs:[
+  {t:"subh",h:"0–20"},
+  {t:"chip",tight:1,cards:[
+   {f:"zéro",p:"zay-ROH",e:"0"},{f:"un",p:"uh(n)",e:"1"},{f:"deux",p:"duh",e:"2"},{f:"trois",p:"trwah",e:"3"},
+   {f:"quatre",p:"KATR",e:"4"},{f:"cinq",p:"sa(n)k",e:"5"},{f:"six",p:"sees",e:"6"},{f:"sept",p:"set",e:"7"},
+   {f:"huit",p:"weet",e:"8"},{f:"neuf",p:"nuhf",e:"9"},{f:"dix",p:"dees",e:"10"},{f:"onze",p:"oh(n)z",e:"11"},
+   {f:"douze",p:"dooz",e:"12"},{f:"treize",p:"trez",e:"13"},{f:"quatorze",p:"ka-TORZ",e:"14"},{f:"quinze",p:"ka(n)z",e:"15"},
+   {f:"seize",p:"sez",e:"16"},{f:"dix-sept",p:"dee-SET",e:"17"},{f:"dix-huit",p:"dee-ZWEET",e:"18"},
+   {f:"dix-neuf",p:"deez-NUHF",e:"19"},{f:"vingt",p:"va(n)",e:"20"}]},
+  {t:"subh",h:"Tens & big numbers"},
+  {t:"chip",cards:[
+   {f:"vingt",p:"va(n)",e:"20"},{f:"trente",p:"trah(n)t",e:"30"},{f:"quarante",p:"ka-RAH(N)T",e:"40"},
+   {f:"cinquante",p:"sa(n)-KAH(N)T",e:"50"},{f:"soixante",p:"swa-SAH(N)T",e:"60"},
+   {f:"soixante-dix",p:"swa-sah(n)t-DEES",e:"70"},{f:"quatre-vingts",p:"katr-VA(N)",e:"80"},
+   {f:"quatre-vingt-dix",p:"katr-va(n)-DEES",e:"90"},{f:"cent",p:"sah(n)",e:"100"},{f:"mille",p:"meel",e:"1000"}]},
+  {t:"note",html:'<b>The quirk:</b> 70 = “sixty-ten”, 80 = “four-twenties”, 90 = “four-twenty-ten”. For A1–A2 you mainly need to <i>recognize</i> them.'},
+  {t:"subh",h:"Ordinals — les ordinaux"},
+  {t:"chip",cards:[
+   {f:"premier / première",p:"pruh-MYAY",e:"first"},{f:"deuxième",p:"duh-ZYEM",e:"second"},
+   {f:"troisième",p:"trwa-ZYEM",e:"third"},{f:"quatrième",p:"ka-tree-EM",e:"fourth"},
+   {f:"dernier / dernière",p:"dehr-NYAY",e:"last"}]}
+ ]},
+
+{id:"temps",part:"I. Les bases",num:4,en:"Days, Months, Seasons, Date",fr:"Le calendrier",
+ blurb:"",
+ secs:[
+  {t:"subh",h:"Days — les jours"},
+  {t:"chip",cards:[
+   {f:"lundi",p:"luh(n)-DEE",e:"Monday"},{f:"mardi",p:"mar-DEE",e:"Tuesday"},{f:"mercredi",p:"mehr-kruh-DEE",e:"Wednesday"},
+   {f:"jeudi",p:"zhuh-DEE",e:"Thursday"},{f:"vendredi",p:"vah(n)-druh-DEE",e:"Friday"},{f:"samedi",p:"sam-DEE",e:"Saturday"},
+   {f:"dimanche",p:"dee-MAH(N)SH",e:"Sunday"}]},
+  {t:"subh",h:"Months — les mois"},
+  {t:"chip",tight:1,cards:[
+   {f:"janvier",p:"zhah(n)-VYAY",e:"January"},{f:"février",p:"fayv-RYAY",e:"February"},{f:"mars",p:"marss",e:"March"},
+   {f:"avril",p:"a-VREEL",e:"April"},{f:"mai",p:"meh",e:"May"},{f:"juin",p:"zhwa(n)",e:"June"},
+   {f:"juillet",p:"zhwee-YEH",e:"July"},{f:"août",p:"oot",e:"August"},{f:"septembre",p:"sep-TAH(N)BR",e:"September"},
+   {f:"octobre",p:"ok-TOBR",e:"October"},{f:"novembre",p:"no-VAH(N)BR",e:"November"},{f:"décembre",p:"day-SAH(N)BR",e:"December"}]},
+  {t:"subh",h:"Seasons & the date"},
+  {t:"chip",cards:[
+   {f:"le printemps",p:"luh pra(n)-TAH(N)",e:"spring"},{f:"l’été",p:"lay-TAY",e:"summer"},
+   {f:"l’automne",p:"loh-TUN",e:"autumn"},{f:"l’hiver",p:"lee-VEHR",e:"winter"},
+   {f:"Quel jour sommes-nous ?",p:"kel zhoor sum-NOO",e:"What day is it?"},
+   {f:"Nous sommes le 5 juin",p:"noo sum luh sa(n)k zhwa(n)",e:"It’s June 5th"}]}
+ ]},
+
+{id:"heure",part:"I. Les bases",num:5,en:"Telling Time",fr:"L’heure",
+ blurb:"",
+ secs:[{t:"chip",cards:[
+   {f:"Quelle heure est-il ?",p:"kel UHR ay-TEEL",e:"What time is it?"},
+   {f:"Il est trois heures",p:"eel ay trwa ZUHR",e:"It’s 3 o’clock"},
+   {f:"Il est midi",p:"eel ay mee-DEE",e:"It’s noon"},{f:"Il est minuit",p:"eel ay mee-NWEE",e:"It’s midnight"},
+   {f:"et demie",p:"ay duh-MEE",e:"half past"},{f:"et quart",p:"ay KAR",e:"quarter past"},
+   {f:"moins le quart",p:"mwa(n) luh KAR",e:"quarter to"},
+   {f:"le matin",p:"luh ma-TA(N)",e:"morning"},{f:"l’après-midi",p:"la-preh-mee-DEE",e:"afternoon"},
+   {f:"le soir",p:"luh SWAHR",e:"evening"},{f:"la nuit",p:"la NWEE",e:"night"},
+   {f:"aujourd’hui",p:"oh-zhoor-DWEE",e:"today"},{f:"demain",p:"duh-MA(N)",e:"tomorrow"},
+   {f:"hier",p:"ee-YEHR",e:"yesterday"},{f:"maintenant",p:"ma(n)t-NAH(N)",e:"now"}]}]},
+
+{id:"salut",part:"I. Les bases",num:6,en:"Greetings & Politeness",fr:"Salutations & politesse",
+ blurb:"The first thing examiners hear — and the social glue of any conversation.",
+ secs:[
+  {t:"subh",h:"Hello & goodbye"},
+  {t:"chip",cards:[
+   {f:"Bonjour",p:"bo(n)-ZHOOR",e:"Hello / Good day"},{f:"Bonsoir",p:"bo(n)-SWAHR",e:"Good evening"},
+   {f:"Salut",p:"sa-LÜ",e:"Hi / Bye (informal)"},{f:"Au revoir",p:"oh ruh-VWAHR",e:"Goodbye"},
+   {f:"À bientôt",p:"ah bya(n)-TOH",e:"See you soon"},{f:"À demain",p:"ah duh-MA(N)",e:"See you tomorrow"},
+   {f:"Bonne journée",p:"bun zhoor-NAY",e:"Have a good day"},{f:"Bonne nuit",p:"bun NWEE",e:"Good night"}]},
+  {t:"subh",h:"How are you?"},
+  {t:"chip",cards:[
+   {f:"Comment allez-vous ?",p:"koh-mah(n) ta-lay VOO",e:"How are you? (formal)"},
+   {f:"Comment ça va ?",p:"koh-mah(n) sa VA",e:"How are you?"},{f:"Ça va ?",p:"sa VA",e:"You OK? (informal)"},
+   {f:"Ça va bien, merci",p:"sa va bya(n) mehr-SEE",e:"I’m well, thanks"},{f:"Très bien",p:"treh BYA(N)",e:"Very well"},
+   {f:"Comme ci, comme ça",p:"kum see kum SA",e:"So-so"},{f:"Et vous ?",p:"ay VOO",e:"And you?"}]},
+  {t:"subh",h:"Please, thanks, sorry"},
+  {t:"chip",cards:[
+   {f:"S’il vous plaît",p:"seel voo PLEH",e:"Please (formal)"},{f:"S’il te plaît",p:"seel tuh PLEH",e:"Please (informal)"},
+   {f:"Merci (beaucoup)",p:"mehr-SEE",e:"Thank you (a lot)"},{f:"De rien",p:"duh RYA(N)",e:"You’re welcome"},
+   {f:"Je vous en prie",p:"zhuh voo zah(n) PREE",e:"You’re welcome (formal)"},{f:"Excusez-moi",p:"eks-kü-zay MWAH",e:"Excuse me"},
+   {f:"Pardon",p:"par-DO(N)",e:"Sorry / Pardon"},{f:"Désolé(e)",p:"day-zo-LAY",e:"Sorry"},
+   {f:"Oui / Non",p:"wee / no(n)",e:"Yes / No"},{f:"D’accord",p:"da-KOR",e:"OK / Agreed"}]}
+ ]},
+
+{id:"presenter",part:"I. Les bases",num:7,en:"Introducing Yourself",fr:"Se présenter",
+ blurb:"The backbone of the speaking test (Expression orale, Section A).",
+ secs:[{t:"chip",cards:[
+   {f:"Je m’appelle…",p:"zhuh ma-PELL",e:"My name is…"},
+   {f:"Comment vous appelez-vous ?",p:"koh-mah(n) voo za-play VOO",e:"What’s your name?"},
+   {f:"Enchanté(e)",p:"ah(n)-shah(n)-TAY",e:"Nice to meet you"},{f:"Je suis…",p:"zhuh SWEE",e:"I am…"},
+   {f:"J’ai trente ans",p:"zhay trah(n) TAH(N)",e:"I’m 30 years old"},
+   {f:"Quel âge avez-vous ?",p:"kel ahzh a-vay VOO",e:"How old are you?"},
+   {f:"J’habite à…",p:"zha-BEET ah",e:"I live in…"},{f:"Où habitez-vous ?",p:"oo a-bee-tay VOO",e:"Where do you live?"},
+   {f:"Je viens d’Inde",p:"zhuh vya(n) DA(N)D",e:"I come from India"},
+   {f:"Je suis ingénieur",p:"zhuh swee a(n)-zhay-NYUHR",e:"I’m an engineer"},
+   {f:"Je parle un peu français",p:"zhuh parl uh(n) puh frah(n)-SEH",e:"I speak a little French"}]}]}
+
+];
+window.VOCAB = window.VOCAB || {};
+</script>
+<script>
+/* ============ PART II — GRAMMAR (pushed in order) ============ */
+window.LESSON.push(
+
+{id:"genre",part:"II. Grammaire",num:8,en:"Gender (m / f)",fr:"Le genre",
+ blurb:"Every French noun is masculine or feminine. Always learn the article WITH the noun.",
+ secs:[
+  {t:"note",html:'Often <b>feminine</b>: words ending in -e, -tion, -sion, -té, -ée, -ance, -ence, -ette. Often <b>masculine</b>: -age, -ment, -eau, -isme, -er, -on. Exceptions exist (e.g. <i>le problème</i>, <i>le musée</i> are masculine), so memorise the article each time.'},
+  {t:"subh",h:"Masculine vs feminine — examples"},
+  {t:"chip",cards:[
+   {f:"un homme",e:"a man (m)"},{f:"une femme",e:"a woman (f)"},
+   {f:"le garçon",e:"the boy (m)"},{f:"la fille",e:"the girl (f)"},
+   {f:"le livre",e:"the book (m)"},{f:"la table",e:"the table (f)"},
+   {f:"le problème",e:"the problem (m — exception)"},{f:"la question",e:"the question (f)"},
+   {f:"le voyage",e:"the trip (m)"},{f:"la liberté",e:"freedom (f)"},
+   {f:"le moment",e:"the moment (m)"},{f:"la maison",e:"the house (f)"}]},
+  {t:"subh",h:"Plurals — le pluriel"},
+  {t:"chip",cards:[
+   {f:"un livre → des livres",e:"add -s (usually silent)"},
+   {f:"le journal → les journaux",e:"-al → -aux"},
+   {f:"un œil → des yeux",e:"irregular"}]}
+ ]},
+
+{id:"articles",part:"II. Grammaire",num:9,en:"Articles",fr:"Les articles",
+ blurb:"The little words before nouns. They show gender, number, and whether you mean ‘the’, ‘a’, or ‘some’.",
+ secs:[
+  {t:"subh",h:"Definite — ‘the’"},
+  {t:"chip",cards:[
+   {f:"le café",p:"luh ka-FAY",e:"the coffee (m)"},{f:"la table",p:"la TABL",e:"the table (f)"},
+   {f:"l’ami",p:"la-MEE",e:"the friend (before vowel)"},{f:"les enfants",p:"lay zah(n)-FAH(N)",e:"the children (pl)"}]},
+  {t:"subh",h:"Indefinite — ‘a / some’"},
+  {t:"chip",cards:[
+   {f:"un livre",p:"uh(n) LEEVR",e:"a book (m)"},{f:"une pomme",p:"ün PUM",e:"an apple (f)"},
+   {f:"des livres",p:"day LEEVR",e:"some books (pl)"}]},
+  {t:"subh",h:"Partitive — ‘some’ (uncountable)"},
+  {t:"chip",cards:[
+   {f:"du pain",p:"dü PA(N)",e:"some bread"},{f:"de la viande",p:"duh la VYAH(N)D",e:"some meat"},
+   {f:"de l’eau",p:"duh LOH",e:"some water"}]},
+  {t:"subh",h:"Contractions (à/de + le)"},
+  {t:"chip",cards:[
+   {f:"au restaurant",p:"oh res-toh-RAH(N)",e:"to/at the restaurant (à+le)"},
+   {f:"aux États-Unis",p:"oh zay-ta-zü-NEE",e:"to the USA (à+les)"},
+   {f:"du matin",p:"dü ma-TA(N)",e:"of the morning (de+le)"}]}
+ ]},
+
+{id:"pronoms",part:"II. Grammaire",num:10,en:"Pronouns",fr:"Les pronoms",
+ blurb:"",
+ secs:[
+  {t:"subh",h:"Subject — sujets"},
+  {t:"chip",tight:1,cards:[
+   {f:"je",p:"zhuh",e:"I"},{f:"tu",p:"tü",e:"you (informal)"},{f:"il",p:"eel",e:"he / it"},
+   {f:"elle",p:"ell",e:"she / it"},{f:"on",p:"o(n)",e:"we / one"},{f:"nous",p:"noo",e:"we"},
+   {f:"vous",p:"voo",e:"you (formal/pl)"},{f:"ils",p:"eel",e:"they (m)"},{f:"elles",p:"ell",e:"they (f)"}]},
+  {t:"subh",h:"Stressed — toniques (after prepositions, for emphasis)"},
+  {t:"chip",tight:1,cards:[
+   {f:"moi",p:"mwah",e:"me"},{f:"toi",p:"twah",e:"you"},{f:"lui",p:"lwee",e:"him"},
+   {f:"elle",p:"ell",e:"her"},{f:"nous",p:"noo",e:"us"},{f:"vous",p:"voo",e:"you"},
+   {f:"eux",p:"uh",e:"them (m)"},{f:"elles",p:"ell",e:"them (f)"}]},
+  {t:"chip",cards:[
+   {f:"C’est pour moi",e:"It’s for me"},{f:"avec toi",e:"with you"},{f:"chez lui",e:"at his place"}]}
+ ]}
+
+);
+</script>
+<script>
+window.LESSON.push(
+{id:"verbes",part:"II. Grammaire",num:11,en:"Verbs & Tenses",fr:"Les verbes",
+ blurb:"The engine of every sentence. Tap any infinitive or form to hear it.",
+ secs:[
+  {t:"subh",h:"The four essential irregulars"},
+  {t:"conj",inf:"être",infp:"ETR",e:"to be",rows:[
+   {f:"je suis",p:"zhuh SWEE",e:"I am"},{f:"tu es",p:"tü EH",e:"you are"},{f:"il / elle est",p:"eel-ell EH",e:"he/she is"},
+   {f:"nous sommes",p:"noo SUM",e:"we are"},{f:"vous êtes",p:"voo ZET",e:"you are"},{f:"ils / elles sont",p:"eel SO(N)",e:"they are"}]},
+  {t:"conj",inf:"avoir",infp:"a-VWAHR",e:"to have",rows:[
+   {f:"j’ai",p:"zhay",e:"I have"},{f:"tu as",p:"tü AH",e:"you have"},{f:"il / elle a",p:"eel-ell AH",e:"he/she has"},
+   {f:"nous avons",p:"noo za-VO(N)",e:"we have"},{f:"vous avez",p:"voo za-VAY",e:"you have"},{f:"ils / elles ont",p:"eel ZO(N)",e:"they have"}]},
+  {t:"conj",inf:"aller",infp:"a-LAY",e:"to go",rows:[
+   {f:"je vais",p:"zhuh VEH",e:"I go"},{f:"tu vas",p:"tü VAH",e:"you go"},{f:"il / elle va",p:"eel-ell VAH",e:"he/she goes"},
+   {f:"nous allons",p:"noo za-LO(N)",e:"we go"},{f:"vous allez",p:"voo za-LAY",e:"you go"},{f:"ils / elles vont",p:"eel VO(N)",e:"they go"}]},
+  {t:"conj",inf:"faire",infp:"FEHR",e:"to do / make",rows:[
+   {f:"je fais",p:"zhuh FEH",e:"I do"},{f:"tu fais",p:"tü FEH",e:"you do"},{f:"il / elle fait",p:"eel-ell FEH",e:"he/she does"},
+   {f:"nous faisons",p:"noo fuh-ZO(N)",e:"we do"},{f:"vous faites",p:"voo FET",e:"you do"},{f:"ils / elles font",p:"eel FO(N)",e:"they do"}]},
+
+  {t:"subh",h:"The three regular patterns"},
+  {t:"conj",inf:"parler",infp:"par-LAY",e:"-ER · to speak",rows:[
+   {f:"je parle",p:"zhuh PARL",e:"I speak"},{f:"tu parles",p:"tü PARL",e:"you speak"},{f:"il / elle parle",p:"eel-ell PARL",e:"he/she speaks"},
+   {f:"nous parlons",p:"noo par-LO(N)",e:"we speak"},{f:"vous parlez",p:"voo par-LAY",e:"you speak"},{f:"ils / elles parlent",p:"eel PARL",e:"they speak"}]},
+  {t:"note",html:'Listen: <i>parle, parles, parlent</i> sound identical — endings are silent. Most -er verbs follow this (habiter, aimer, travailler, regarder, écouter…).'},
+  {t:"conj",inf:"finir",infp:"fee-NEER",e:"-IR · to finish",rows:[
+   {f:"je finis",p:"zhuh fee-NEE",e:"I finish"},{f:"tu finis",p:"tü fee-NEE",e:"you finish"},{f:"il / elle finit",p:"eel-ell fee-NEE",e:"he/she finishes"},
+   {f:"nous finissons",p:"noo fee-nee-SO(N)",e:"we finish"},{f:"vous finissez",p:"voo fee-nee-SAY",e:"you finish"},{f:"ils / elles finissent",p:"eel fee-NEES",e:"they finish"}]},
+  {t:"conj",inf:"vendre",infp:"VAH(N)DR",e:"-RE · to sell",rows:[
+   {f:"je vends",p:"zhuh VAH(N)",e:"I sell"},{f:"tu vends",p:"tü VAH(N)",e:"you sell"},{f:"il / elle vend",p:"eel-ell VAH(N)",e:"he/she sells"},
+   {f:"nous vendons",p:"noo vah(n)-DO(N)",e:"we sell"},{f:"vous vendez",p:"voo vah(n)-DAY",e:"you sell"},{f:"ils / elles vendent",p:"eel VAH(N)D",e:"they sell"}]},
+
+  {t:"subh",h:"More high-frequency irregulars"},
+  {t:"conj",inf:"prendre",infp:"PRAH(N)DR",e:"to take",rows:[
+   {f:"je prends",p:"zhuh PRAH(N)",e:"I take"},{f:"il / elle prend",p:"eel-ell PRAH(N)",e:"he/she takes"},
+   {f:"nous prenons",p:"noo pruh-NO(N)",e:"we take"},{f:"ils / elles prennent",p:"eel PREN",e:"they take"}]},
+  {t:"conj",inf:"venir",infp:"vuh-NEER",e:"to come",rows:[
+   {f:"je viens",p:"zhuh VYA(N)",e:"I come"},{f:"il / elle vient",p:"eel-ell VYA(N)",e:"he/she comes"},
+   {f:"nous venons",p:"noo vuh-NO(N)",e:"we come"},{f:"ils / elles viennent",p:"eel VYEN",e:"they come"}]},
+  {t:"conj",inf:"pouvoir",infp:"poo-VWAHR",e:"to be able / can",rows:[
+   {f:"je peux",p:"zhuh PUH",e:"I can"},{f:"il / elle peut",p:"eel-ell PUH",e:"he/she can"},
+   {f:"nous pouvons",p:"noo poo-VO(N)",e:"we can"},{f:"ils / elles peuvent",p:"eel PUHV",e:"they can"}]},
+  {t:"conj",inf:"vouloir",infp:"voo-LWAHR",e:"to want",rows:[
+   {f:"je veux",p:"zhuh VUH",e:"I want"},{f:"il / elle veut",p:"eel-ell VUH",e:"he/she wants"},
+   {f:"nous voulons",p:"noo voo-LO(N)",e:"we want"},{f:"ils / elles veulent",p:"eel VUHL",e:"they want"}]},
+  {t:"chip",cards:[
+   {f:"je dois",p:"zhuh DWAH",e:"I must (devoir)"},{f:"je vois",p:"zhuh VWAH",e:"I see (voir)"},
+   {f:"je sais",p:"zhuh SEH",e:"I know (savoir)"},{f:"je dis",p:"zhuh DEE",e:"I say (dire)"},
+   {f:"je mets",p:"zhuh MEH",e:"I put (mettre)"},{f:"il faut",p:"eel FOH",e:"it is necessary (falloir)"},
+   {f:"il y a",p:"eel ya",e:"there is / there are"}]},
+
+  {t:"subh",h:"Past — le passé composé"},
+  {t:"note",html:'<b>avoir</b> (or <b>être</b>) in the present + <b>past participle</b>. Most verbs use <i>avoir</i>; movement/state verbs and reflexives use <i>être</i> (and the participle agrees with the subject).'},
+  {t:"chip",cards:[
+   {f:"J’ai mangé",e:"I ate / have eaten"},{f:"Tu as fini",e:"you finished"},{f:"Il a pris",e:"he took"},
+   {f:"Nous avons vu",e:"we saw"},{f:"Je suis allé(e)",e:"I went"},{f:"Elle est venue",e:"she came"},
+   {f:"Ils sont partis",e:"they left"}]},
+  {t:"subh",h:"Common past participles"},
+  {t:"chip",tight:1,cards:[
+   {f:"été",e:"been"},{f:"eu",e:"had"},{f:"fait",e:"done"},{f:"pris",e:"taken"},{f:"vu",e:"seen"},
+   {f:"dit",e:"said"},{f:"mis",e:"put"},{f:"pu",e:"could"},{f:"voulu",e:"wanted"},{f:"dû",e:"had to"},
+   {f:"allé",e:"gone"},{f:"venu",e:"come"},{f:"parlé",e:"spoken"},{f:"fini",e:"finished"},{f:"vendu",e:"sold"}]},
+
+  {t:"subh",h:"Background & habits — l’imparfait"},
+  {t:"note",html:'Take the <i>nous</i> present, drop <b>-ons</b>, add <b>-ais, -ais, -ait, -ions, -iez, -aient</b>. Used for descriptions, habits, “was/were doing”.'},
+  {t:"chip",cards:[
+   {f:"Je parlais",e:"I was speaking / used to speak"},{f:"C’était bien",e:"it was good"},
+   {f:"Il faisait beau",e:"the weather was nice"},{f:"Nous avions",e:"we had / used to have"}]},
+
+  {t:"subh",h:"Near future — le futur proche"},
+  {t:"note",html:'<b>aller</b> (present) + <b>infinitive</b> = “going to”.'},
+  {t:"chip",cards:[
+   {f:"Je vais manger",e:"I’m going to eat"},{f:"Tu vas voir",e:"you’re going to see"},
+   {f:"On va partir",e:"we’re going to leave"}]},
+  {t:"subh",h:"Simple future — le futur simple (A2)"},
+  {t:"chip",cards:[
+   {f:"Je parlerai",e:"I will speak"},{f:"Il sera",e:"he will be"},{f:"Nous irons",e:"we will go"}]}
+ ]}
+);
+</script>
+<script>
+window.LESSON.push(
+
+{id:"negation",part:"II. Grammaire",num:12,en:"Negation",fr:"La négation",
+ blurb:"Wrap the verb: ne + verb + pas (and friends).",
+ secs:[{t:"chip",cards:[
+  {f:"Je ne parle pas",p:"zhuh nuh parl PAH",e:"I don’t speak"},
+  {f:"Ce n’est pas vrai",e:"that’s not true"},
+  {f:"Je n’ai jamais vu",e:"I’ve never seen"},
+  {f:"Il n’y a rien",e:"there’s nothing"},
+  {f:"Je ne fume plus",e:"I don’t smoke anymore"},
+  {f:"Il n’y a personne",e:"there’s nobody"},
+  {f:"pas encore",e:"not yet"}]}]},
+
+{id:"questions",part:"II. Grammaire",num:13,en:"Asking Questions",fr:"Les questions",
+ blurb:"",
+ secs:[
+  {t:"subh",h:"Three ways to ask yes/no"},
+  {t:"chip",cards:[
+   {f:"Tu parles français ?",e:"intonation (informal)"},
+   {f:"Est-ce que tu parles français ?",e:"with est-ce que"},
+   {f:"Parlez-vous français ?",e:"inversion (formal)"}]},
+  {t:"subh",h:"Question words — les mots interrogatifs"},
+  {t:"chip",tight:1,cards:[
+   {f:"qui ?",p:"kee",e:"who?"},{f:"quoi ?",p:"kwah",e:"what?"},{f:"que… ?",p:"kuh",e:"what…?"},
+   {f:"où ?",p:"oo",e:"where?"},{f:"quand ?",p:"kah(n)",e:"when?"},{f:"comment ?",p:"koh-MAH(N)",e:"how?"},
+   {f:"combien ?",p:"ko(n)-BYA(N)",e:"how much/many?"},{f:"pourquoi ?",p:"poor-KWAH",e:"why?"},
+   {f:"quel / quelle ?",p:"kel",e:"which?"}]},
+  {t:"chip",cards:[
+   {f:"Où habitez-vous ?",e:"Where do you live?"},{f:"Combien ça coûte ?",e:"How much is it?"},
+   {f:"Pourquoi ?",e:"Why?"},{f:"Qu’est-ce que c’est ?",e:"What is it?"}]}
+ ]},
+
+{id:"adjectifs",part:"II. Grammaire",num:14,en:"Adjectives & Possessives",fr:"Les adjectifs",
+ blurb:"Adjectives agree with the noun (m/f, sg/pl). Most go AFTER the noun.",
+ secs:[
+  {t:"note",html:'A few common adjectives go <b>before</b> the noun: <i>grand, petit, bon, beau, nouveau, jeune, vieux, joli, gros</i>. Most others go after: <i>une voiture rouge</i>.'},
+  {t:"subh",h:"Agreement — accord"},
+  {t:"chip",cards:[
+   {f:"un grand homme",e:"a tall man (m)"},{f:"une grande maison",e:"a big house (f)"},
+   {f:"un petit chien",e:"a small dog (m)"},{f:"une petite fille",e:"a little girl (f)"},
+   {f:"des livres rouges",e:"red books (pl)"}]},
+  {t:"subh",h:"Possessives — mon, ma, mes…"},
+  {t:"chip",tight:1,cards:[
+   {f:"mon / ma / mes",p:"mo(n)/ma/may",e:"my"},{f:"ton / ta / tes",p:"to(n)/ta/tay",e:"your"},
+   {f:"son / sa / ses",p:"so(n)/sa/say",e:"his / her"},{f:"notre / nos",p:"notr/noh",e:"our"},
+   {f:"votre / vos",p:"votr/voh",e:"your (pl)"},{f:"leur / leurs",p:"luhr",e:"their"}]},
+  {t:"subh",h:"Demonstratives — ce, cette, ces (this/that)"},
+  {t:"chip",cards:[
+   {f:"ce livre",e:"this book (m)"},{f:"cet homme",e:"this man (m, before vowel)"},
+   {f:"cette femme",e:"this woman (f)"},{f:"ces enfants",e:"these children (pl)"}]}
+ ]},
+
+{id:"prepositions",part:"II. Grammaire",num:15,en:"Prepositions",fr:"Les prépositions",
+ blurb:"",
+ secs:[
+  {t:"chip",tight:1,cards:[
+   {f:"à",p:"ah",e:"to / at"},{f:"de",p:"duh",e:"of / from"},{f:"dans",p:"dah(n)",e:"in"},
+   {f:"sur",p:"sür",e:"on"},{f:"sous",p:"soo",e:"under"},{f:"avec",p:"a-VEK",e:"with"},
+   {f:"sans",p:"sah(n)",e:"without"},{f:"pour",p:"poor",e:"for"},{f:"chez",p:"shay",e:"at (someone’s)"},
+   {f:"entre",p:"ah(n)tr",e:"between"},{f:"devant",p:"duh-VAH(N)",e:"in front of"},{f:"derrière",p:"deh-RYEHR",e:"behind"},
+   {f:"près de",p:"preh duh",e:"near"},{f:"loin de",p:"lwa(n) duh",e:"far from"},{f:"à côté de",p:"a koh-tay duh",e:"next to"}]},
+  {t:"subh",h:"With places & countries"},
+  {t:"chip",cards:[
+   {f:"à Paris",e:"in/to Paris (city)"},{f:"en France",e:"in/to France (f country)"},
+   {f:"au Canada",e:"in/to Canada (m country)"},{f:"aux États-Unis",e:"in/to the USA (pl)"}]}
+ ]},
+
+{id:"connecteurs",part:"II. Grammaire",num:16,en:"Connectors",fr:"Les connecteurs",
+ blurb:"Small words that link ideas — they instantly make your speaking and writing sound more fluent.",
+ secs:[{t:"chip",tight:1,cards:[
+  {f:"et",p:"ay",e:"and"},{f:"ou",p:"oo",e:"or"},{f:"mais",p:"meh",e:"but"},{f:"donc",p:"do(n)k",e:"so / therefore"},
+  {f:"parce que",p:"pars kuh",e:"because"},{f:"car",p:"kar",e:"because / for"},{f:"alors",p:"a-LOR",e:"so / then"},
+  {f:"aussi",p:"oh-SEE",e:"also"},{f:"puis",p:"pwee",e:"then"},{f:"ensuite",p:"ah(n)-SWEET",e:"next"},
+  {f:"comme",p:"kum",e:"as / like"},{f:"si",p:"see",e:"if"},{f:"quand",p:"kah(n)",e:"when"},
+  {f:"pendant",p:"pah(n)-DAH(N)",e:"during"},{f:"avant",p:"a-VAH(N)",e:"before"},{f:"après",p:"a-PREH",e:"after"},
+  {f:"d’abord",p:"da-BOR",e:"first of all"},{f:"enfin",p:"ah(n)-FA(N)",e:"finally"},{f:"cependant",p:"suh-pah(n)-DAH(N)",e:"however"}]}]}
+
+);
+</script>
+<script>
+/* ============ PART III — HIGH-FREQUENCY VOCABULARY ============ */
+Object.assign(window.VOCAB,{
+"verbs1":{o:1,title:"Essential Verbs (1)",fr:"Les verbes essentiels",items:
+"être=to be|avoir=to have|faire=to do / make|dire=to say|aller=to go|voir=to see|savoir=to know|pouvoir=to be able / can|vouloir=to want|venir=to come|devoir=to have to / must|prendre=to take|trouver=to find|donner=to give|parler=to speak|mettre=to put|passer=to pass / spend|regarder=to watch|aimer=to like / love|croire=to believe|demander=to ask|rester=to stay|répondre=to answer|vivre=to live|penser=to think|comprendre=to understand|connaître=to know (be familiar)|entendre=to hear|attendre=to wait|chercher=to look for|sentir=to feel / smell|tenir=to hold|porter=to carry / wear|montrer=to show|continuer=to continue|perdre=to lose|écrire=to write|lire=to read|commencer=to begin|finir=to finish|sortir=to go out|partir=to leave|arriver=to arrive|entrer=to enter|monter=to go up|descendre=to go down|tomber=to fall|rentrer=to go home|retourner=to go back|ouvrir=to open|fermer=to close|jouer=to play|gagner=to win / earn|payer=to pay|acheter=to buy|vendre=to sell|manger=to eat|boire=to drink|dormir=to sleep"},
+"verbs2":{o:2,title:"Essential Verbs (2)",fr:"D’autres verbes utiles",items:
+"courir=to run|marcher=to walk / work|conduire=to drive|voyager=to travel|visiter=to visit|habiter=to live (reside)|travailler=to work|étudier=to study|apprendre=to learn|enseigner=to teach|expliquer=to explain|oublier=to forget|aider=to help|apporter=to bring|choisir=to choose|décider=to decide|essayer=to try|réussir=to succeed|changer=to change|devenir=to become|sembler=to seem|arrêter=to stop|utiliser=to use|servir=to serve|suivre=to follow|accepter=to accept|refuser=to refuse|proposer=to propose|présenter=to introduce|rencontrer=to meet|appeler=to call|téléphoner=to phone|envoyer=to send|recevoir=to receive|garder=to keep|laisser=to let / leave|permettre=to allow|obtenir=to obtain|créer=to create|construire=to build|réparer=to repair|nettoyer=to clean|préparer=to prepare|cuisiner=to cook|laver=to wash|aider=to help|adorer=to adore|détester=to hate|préférer=to prefer|espérer=to hope|remercier=to thank|saluer=to greet|inviter=to invite|réserver=to book|annuler=to cancel|réfléchir=to think over|imaginer=to imagine|raconter=to tell (a story)|montrer=to show|ajouter=to add|enlever=to remove"}
+});
+</script>
+<script>
+Object.assign(window.VOCAB,{
+"adj":{o:3,title:"Common Adjectives",fr:"Les adjectifs courants",items:
+"grand=big / tall|petit=small|gros=fat / big|mince=thin|long=long|court=short|large=wide|haut=high|bas=low|jeune=young|vieux=old|nouveau=new|ancien=old / former|bon=good|mauvais=bad|beau=beautiful|joli=pretty|laid=ugly|facile=easy|difficile=difficult|simple=simple|important=important|intéressant=interesting|ennuyeux=boring|fort=strong|faible=weak|rapide=fast|lent=slow|chaud=hot|froid=cold|propre=clean|sale=dirty|plein=full|vide=empty|ouvert=open|fermé=closed|clair=light / clear|sombre=dark|lourd=heavy|léger=light (weight)|dur=hard|doux=soft / gentle|riche=rich|pauvre=poor|cher=expensive|gratuit=free|heureux=happy|triste=sad|content=glad|fatigué=tired|malade=sick|vrai=true|faux=false|possible=possible|impossible=impossible|libre=free / available|occupé=busy|prêt=ready|dernier=last|prochain=next|même=same|différent=different|seul=alone|gentil=kind|méchant=mean|poli=polite|sympathique=nice|drôle=funny|sérieux=serious|intelligent=intelligent|sûr=sure / safe|dangereux=dangerous|utile=useful|inutile=useless|nécessaire=necessary|normal=normal|bizarre=strange|célèbre=famous|connu=known|inconnu=unknown|public=public|privé=private|moderne=modern|naturel=natural|frais=fresh / cool|chaque=each|entier=whole|certain=certain|possible=possible|magnifique=magnificent|génial=great|parfait=perfect|terrible=terrible|grave=serious|calme=calm|tranquille=quiet|nerveux=nervous|amoureux=in love|jaloux=jealous|fier=proud|timide=shy|courageux=brave|honnête=honest|méchant=nasty|agréable=pleasant|désagréable=unpleasant"},
+"adv":{o:4,title:"Adverbs & Quantity",fr:"Adverbes & quantité",items:
+"très=very|beaucoup=a lot|trop=too much|assez=enough / quite|peu=little|plus=more|moins=less|bien=well|mal=badly|vite=quickly|lentement=slowly|toujours=always|souvent=often|parfois=sometimes|rarement=rarely|jamais=never|déjà=already|encore=again / still|bientôt=soon|tard=late|tôt=early|ici=here|là=there|là-bas=over there|partout=everywhere|dehors=outside|dedans=inside|ensemble=together|seulement=only|vraiment=really|peut-être=maybe|sûrement=surely|presque=almost|environ=about|surtout=especially|plutôt=rather|tout=all / everything|tous=all (m pl)|toute=all (f)|chaque=each|plusieurs=several|quelques=a few|certains=some|aucun=none|tout le monde=everyone|un peu=a little|la plupart=most|maintenant=now|d’habitude=usually|en général=in general|tout de suite=right away|de temps en temps=from time to time"}
+});
+</script>
+<script>
+Object.assign(window.VOCAB,{
+"people":{o:5,title:"People & Family",fr:"Les gens & la famille",items:
+"la famille=family|les parents=parents|le père=father|la mère=mother|le papa=dad|la maman=mum|le fils=son|la fille=daughter / girl|le frère=brother|la sœur=sister|le mari=husband|la femme=wife / woman|l’enfant=child|le bébé=baby|le grand-père=grandfather|la grand-mère=grandmother|les grands-parents=grandparents|l’oncle=uncle|la tante=aunt|le cousin=cousin (m)|la cousine=cousin (f)|le neveu=nephew|la nièce=niece|le beau-père=father-in-law / stepfather|la belle-mère=mother-in-law / stepmother|l’homme=man|le garçon=boy|le monsieur=gentleman|la dame=lady|l’ami=friend (m)|l’amie=friend (f)|le copain=friend / boyfriend|la copine=friend / girlfriend|le voisin=neighbour (m)|la voisine=neighbour (f)|les gens=people|la personne=person|l’adulte=adult|l’adolescent=teenager|le collègue=colleague|le patron=boss|le couple=couple|le mariage=marriage / wedding|l’amour=love|le petit ami=boyfriend|la petite amie=girlfriend|le/la célibataire=single person|le groupe=group|le monde=world / people"},
+"body":{o:6,title:"Body & Health",fr:"Le corps & la santé",items:
+"le corps=body|la tête=head|le visage=face|les cheveux=hair|l’œil=eye|les yeux=eyes|le nez=nose|la bouche=mouth|la dent=tooth|l’oreille=ear|la langue=tongue / language|le cou=neck|l’épaule=shoulder|le bras=arm|la main=hand|le doigt=finger|le ventre=belly|le dos=back|la jambe=leg|le pied=foot|le genou=knee|le cœur=heart|le sang=blood|la peau=skin|la santé=health|la maladie=illness|le médecin=doctor|l’infirmière=nurse (f)|l’hôpital=hospital|la pharmacie=pharmacy|le médicament=medicine|l’ordonnance=prescription|la douleur=pain|la fièvre=fever|le rhume=cold|la grippe=flu|la toux=cough|la blessure=injury|l’accident=accident|le régime=diet|le sommeil=sleep|avoir mal à la tête=to have a headache|être malade=to be sick|être en forme=to be fit|avoir froid=to be cold|avoir chaud=to be hot|se sentir bien=to feel good"},
+"food":{o:7,title:"Food & Drink",fr:"La nourriture & les boissons",items:
+"la nourriture=food|le repas=meal|le petit-déjeuner=breakfast|le déjeuner=lunch|le dîner=dinner|le pain=bread|le beurre=butter|le fromage=cheese|l’œuf=egg|le lait=milk|l’eau=water|le café=coffee|le thé=tea|le jus=juice|le vin=wine|la bière=beer|le sucre=sugar|le sel=salt|le poivre=pepper|l’huile=oil|la viande=meat|le poulet=chicken|le bœuf=beef|le porc=pork|le poisson=fish|le jambon=ham|le riz=rice|les pâtes=pasta|la pomme de terre=potato|la tomate=tomato|la carotte=carrot|l’oignon=onion|la salade=salad|le légume=vegetable|le fruit=fruit|la pomme=apple|la banane=banana|l’orange=orange|la fraise=strawberry|le citron=lemon|le raisin=grape|le gâteau=cake|le chocolat=chocolate|la glace=ice cream|le biscuit=biscuit|le bonbon=sweet / candy|la soupe=soup|le sandwich=sandwich|le menu=menu|l’addition=the bill|le serveur=waiter|la cuisine=kitchen / cooking|l’assiette=plate|le verre=glass|la tasse=cup|la fourchette=fork|le couteau=knife|la cuillère=spoon|la bouteille=bottle|le plat=dish|le dessert=dessert|le goût=taste|avoir faim=to be hungry|avoir soif=to be thirsty"}
+});
+</script>
+<script>
+Object.assign(window.VOCAB,{
+"house":{o:8,title:"House & Furniture",fr:"La maison & les meubles",items:
+"la maison=house|l’appartement=flat / apartment|l’immeuble=building|la pièce=room|la chambre=bedroom|le salon=living room|la salle de bains=bathroom|les toilettes=toilet|la salle à manger=dining room|le bureau=office / desk|le couloir=hallway|l’escalier=stairs|le mur=wall|le sol=floor|le plafond=ceiling|le toit=roof|la porte=door|la fenêtre=window|la clé=key|le meuble=furniture|la table=table|la chaise=chair|le fauteuil=armchair|le canapé=sofa|le lit=bed|l’armoire=wardrobe|l’étagère=shelf|le placard=cupboard|le tiroir=drawer|le miroir=mirror|le tapis=rug / carpet|le rideau=curtain|la lampe=lamp|la lumière=light|le four=oven|le frigo=fridge|la cuisinière=stove|le lave-linge=washing machine|le lave-vaisselle=dishwasher|la télévision=television|l’ordinateur=computer|le jardin=garden|le balcon=balcony|le garage=garage|le loyer=rent|le propriétaire=owner / landlord|la couverture=blanket|l’oreiller=pillow|la serviette=towel|le savon=soap|la poubelle=bin"},
+"clothes":{o:9,title:"Clothing",fr:"Les vêtements",items:
+"les vêtements=clothes|la chemise=shirt|le pantalon=trousers|la robe=dress|la jupe=skirt|le pull=jumper|le manteau=coat|la veste=jacket|le tee-shirt=t-shirt|le jean=jeans|les chaussures=shoes|les chaussettes=socks|le chapeau=hat|la casquette=cap|les gants=gloves|l’écharpe=scarf|la cravate=tie|la ceinture=belt|le sac=bag|le sac à main=handbag|les lunettes=glasses|la montre=watch|la bague=ring|le bijou=jewel|le maillot de bain=swimsuit|le short=shorts|le costume=suit|les bottes=boots|s’habiller=to get dressed|la taille=size|la mode=fashion|la poche=pocket|le bouton=button"},
+"city":{o:10,title:"City & Places",fr:"La ville & les lieux",items:
+"la ville=city / town|le village=village|la campagne=countryside|le quartier=neighbourhood|la rue=street|l’avenue=avenue|la place=square|le centre-ville=town centre|la banlieue=suburb|le bâtiment=building|la gare=train station|l’aéroport=airport|la station=station|l’arrêt=stop|l’hôtel=hotel|le restaurant=restaurant|le café=café|le bar=bar|le magasin=shop|le supermarché=supermarket|le marché=market|la boulangerie=bakery|la boucherie=butcher’s|la pharmacie=pharmacy|la banque=bank|la poste=post office|l’école=school|l’université=university|la bibliothèque=library|le musée=museum|le théâtre=theatre|le cinéma=cinema|l’église=church|le parc=park|le commissariat=police station|la mairie=town hall|le pont=bridge|la route=road|l’autoroute=motorway|le trottoir=pavement|le feu=traffic light|le parking=car park|la piscine=swimming pool|le stade=stadium|la plage=beach|la montagne=mountain|la mer=sea|le lac=lake|la rivière=river|la forêt=forest|la ferme=farm|l’usine=factory|l’entreprise=company"}
+});
+</script>
+<script>
+Object.assign(window.VOCAB,{
+"travel":{o:11,title:"Transport & Travel",fr:"Les transports & voyages",items:
+"le transport=transport|la voiture=car|le bus=bus|le train=train|le métro=subway|le tram=tram|l’avion=plane|le bateau=boat|le vélo=bicycle|la moto=motorbike|le taxi=taxi|le camion=truck|le voyage=trip|le billet=ticket|le ticket=ticket|la valise=suitcase|le bagage=luggage|le passeport=passport|le visa=visa|la frontière=border|la douane=customs|le départ=departure|l’arrivée=arrival|le retard=delay|l’horaire=schedule|le quai=platform|le siège=seat|le conducteur=driver|le passager=passenger|le permis de conduire=driving licence|l’essence=petrol|la carte=map / card|le plan=map / plan|la direction=direction|le nord=north|le sud=south|l’est=east|l’ouest=west|à gauche=on the left|à droite=on the right|tout droit=straight ahead|les vacances=holidays|le tourisme=tourism|le touriste=tourist|le séjour=stay|la destination=destination|l’aventure=adventure"},
+"work":{o:12,title:"Work & Jobs",fr:"Le travail & les métiers",items:
+"le travail=work|l’emploi=job|le métier=trade / job|la profession=profession|la société=company|le chef=boss / chef|l’employé=employee|le client=customer|le salaire=salary|le contrat=contract|la réunion=meeting|le projet=project|le rendez-vous=appointment|le dossier=file|le rapport=report|le document=document|la carrière=career|le chômage=unemployment|l’expérience=experience|la compétence=skill|la formation=training|le stage=internship|l’entretien=interview|le CV=résumé|la candidature=application|les congés=time off|la retraite=retirement|l’ingénieur=engineer|le professeur=teacher|l’avocat=lawyer|le policier=police officer|le pompier=firefighter|l’infirmier=nurse (m)|le vendeur=salesperson|le caissier=cashier|le cuisinier=cook|le chauffeur=driver|le facteur=postman|le boulanger=baker|le coiffeur=hairdresser|le mécanicien=mechanic|l’agriculteur=farmer|le journaliste=journalist|l’acteur=actor|l’écrivain=writer|le directeur=director|le comptable=accountant|le développeur=developer|le commerçant=shopkeeper|le fonctionnaire=civil servant"},
+"school":{o:13,title:"Education & School",fr:"L’éducation & l’école",items:
+"l’école=school|le lycée=high school|le collège=middle school|la classe=class|la salle de classe=classroom|l’élève=pupil|l’étudiant=student|le cours=course / class|la leçon=lesson|le devoir=homework|l’examen=exam|le test=test|la note=grade|le diplôme=diploma|le bac=baccalaureate|la matière=subject|les mathématiques=maths|l’histoire=history|la géographie=geography|la science=science|la langue=language|la lecture=reading|l’écriture=writing|le cahier=notebook|le stylo=pen|le crayon=pencil|la gomme=eraser|la règle=ruler|le tableau=board|le sac à dos=backpack|la récréation=break|le mot=word|la phrase=sentence|le texte=text|le résultat=result|le savoir=knowledge|la connaissance=knowledge|la bourse=scholarship|le directeur=principal|la rentrée=back-to-school"}
+});
+</script>
+<script>
+Object.assign(window.VOCAB,{
+"nature":{o:14,title:"Nature & Environment",fr:"La nature & l’environnement",items:
+"la nature=nature|l’environnement=environment|la terre=earth / ground|le ciel=sky|le soleil=sun|la lune=moon|l’étoile=star|l’océan=ocean|la mer=sea|la colline=hill|le fleuve=river (large)|l’arbre=tree|la fleur=flower|la plante=plant|l’herbe=grass|la feuille=leaf|la branche=branch|le bois=wood|la pierre=stone|le rocher=rock|le sable=sand|l’air=air|le feu=fire|le champ=field|le paysage=landscape|la planète=planet|la pollution=pollution|le déchet=waste|le recyclage=recycling|l’énergie=energy|la rivière=river|le lac=lake|la forêt=forest|la montagne=mountain|le jardin=garden"},
+"animals":{o:15,title:"Animals",fr:"Les animaux",items:
+"l’animal=animal|le chien=dog|le chat=cat|le cheval=horse|la vache=cow|le cochon=pig|le mouton=sheep|la chèvre=goat|la poule=hen|le coq=rooster|le canard=duck|l’oiseau=bird|le poisson=fish|la souris=mouse|le rat=rat|le lapin=rabbit|l’âne=donkey|le lion=lion|le tigre=tiger|l’éléphant=elephant|le singe=monkey|l’ours=bear|le loup=wolf|le renard=fox|l’insecte=insect|l’abeille=bee|la mouche=fly|le moustique=mosquito|l’araignée=spider|le papillon=butterfly|la fourmi=ant|le serpent=snake|la grenouille=frog|la tortue=turtle|le requin=shark|la baleine=whale|le dauphin=dolphin|la queue=tail|l’aile=wing|la patte=paw"},
+"weather":{o:16,title:"Weather",fr:"La météo",items:
+"le temps=weather|la météo=weather forecast|le climat=climate|la pluie=rain|la neige=snow|le vent=wind|le nuage=cloud|l’orage=storm|la tempête=storm|le brouillard=fog|la chaleur=heat|le froid=cold|la température=temperature|le degré=degree|Il fait beau=The weather is nice|Il fait chaud=It’s hot|Il fait froid=It’s cold|Il pleut=It’s raining|Il neige=It’s snowing|Il y a du vent=It’s windy|Il y a du soleil=It’s sunny|le parapluie=umbrella"}
+});
+</script>
+<script>
+Object.assign(window.VOCAB,{
+"time":{o:17,title:"Time & Moments",fr:"Le temps & les moments",items:
+"le temps=time|la minute=minute|la seconde=second|la journée=day (duration)|la semaine=week|le mois=month|l’année=year|l’an=year|le siècle=century|le moment=moment|l’instant=instant|le début=beginning|la fin=end|le passé=past|le présent=present|l’avenir=future|le futur=future|le calendrier=calendar|la date=date|le week-end=weekend|le jour férié=public holiday|longtemps=a long time|récemment=recently|autrefois=in the past|l’âge=age|l’époque=era|la durée=duration|l’horloge=clock|le réveil=alarm clock|le délai=deadline|la fois=time (occurrence)"},
+"tech":{o:18,title:"Technology & Media",fr:"La technologie & les médias",items:
+"la technologie=technology|l’ordinateur=computer|le portable=mobile / laptop|le téléphone=phone|le smartphone=smartphone|la tablette=tablet|l’écran=screen|le clavier=keyboard|la souris=mouse|Internet=Internet|le site=website|le mail=email|le message=message|le réseau=network|les réseaux sociaux=social media|l’application=app|le logiciel=software|le fichier=file|la photo=photo|la vidéo=video|la caméra=camera|l’appareil photo=camera|la musique=music|la radio=radio|le film=film|l’émission=programme|les informations=the news|les actualités=current news|le journal=newspaper|le magazine=magazine|la lettre=letter|le numéro=number|le mot de passe=password|le wifi=wifi|la connexion=connection|télécharger=to download|le jeu vidéo=video game|le clavier=keyboard|le casque=headphones|la batterie=battery"},
+"money":{o:19,title:"Money & Shopping",fr:"L’argent & les achats",items:
+"l’argent=money|l’euro=euro|le dollar=dollar|la monnaie=change / currency|le prix=price|le coût=cost|la carte bancaire=bank card|la carte de crédit=credit card|les espèces=cash|le billet=banknote|la pièce=coin|le compte=account|la banque=bank|le distributeur=ATM|le magasin=shop|le supermarché=supermarket|le marché=market|les courses=shopping / errands|le panier=basket|le chariot=trolley|la caisse=checkout|le caissier=cashier|le client=customer|la facture=invoice|le reçu=receipt|la promotion=special offer|les soldes=the sales|la réduction=discount|coûter=to cost|dépenser=to spend|économiser=to save|le budget=budget|la dette=debt|le pourboire=tip|cher=expensive|gratuit=free|riche=rich|pauvre=poor"}
+});
+</script>
+<script>
+Object.assign(window.VOCAB,{
+"leisure":{o:20,title:"Leisure & Sport",fr:"Les loisirs & le sport",items:
+"le loisir=leisure|le sport=sport|le jeu=game|le match=match|l’équipe=team|le joueur=player|le ballon=ball|le football=football|le tennis=tennis|le basket=basketball|la natation=swimming|la course=running / race|la randonnée=hiking|le ski=skiing|la danse=dance|le concert=concert|le spectacle=show|la fête=party|l’anniversaire=birthday|la promenade=walk|le passe-temps=hobby|le club=club|le gymnase=gym|nager=to swim|danser=to dance|chanter=to sing|dessiner=to draw|peindre=to paint|le dessin=drawing|la peinture=painting|la chanson=song|le vélo=bike|le cinéma=cinema|le film=film|jouer=to play|gagner=to win|perdre=to lose|le billard=pool|les cartes=cards|le voyage=trip"},
+"emotions":{o:21,title:"Emotions & Personality",fr:"Les émotions & la personnalité",items:
+"l’émotion=emotion|le sentiment=feeling|la joie=joy|le bonheur=happiness|la tristesse=sadness|la colère=anger|la peur=fear|la surprise=surprise|l’espoir=hope|le stress=stress|l’inquiétude=worry|le plaisir=pleasure|le rêve=dream|le souvenir=memory|heureux=happy|triste=sad|content=glad|fâché=angry|inquiet=worried|surpris=surprised|déçu=disappointed|fier=proud|jaloux=jealous|amoureux=in love|timide=shy|nerveux=nervous|calme=calm|courageux=brave|honnête=honest|gentil=kind|méchant=mean|sympathique=nice|drôle=funny|sérieux=serious|paresseux=lazy|travailleur=hardworking|généreux=generous|égoïste=selfish|patient=patient|sensible=sensitive|la personnalité=personality|le caractère=character|l’humeur=mood|rire=to laugh|pleurer=to cry|sourire=to smile|s’amuser=to have fun|s’ennuyer=to be bored|avoir peur=to be afraid|être content=to be glad"},
+"colours":{o:22,title:"Colours, Shapes & Materials",fr:"Couleurs, formes & matières",items:
+"la couleur=colour|rouge=red|bleu=blue|vert=green|jaune=yellow|noir=black|blanc=white|orange=orange|rose=pink|violet=purple|gris=grey|marron=brown|beige=beige|clair=light|foncé=dark|la forme=shape|le rond=circle|rond=round|le carré=square|le triangle=triangle|le rectangle=rectangle|la ligne=line|le point=point / dot|la matière=material|le bois=wood|le métal=metal|le fer=iron|l’or=gold|le plastique=plastic|le verre=glass|le papier=paper|le carton=cardboard|le tissu=fabric|le coton=cotton|la laine=wool|le cuir=leather|la brique=brick|le béton=concrete"}
+});
+</script>
+<script>
+Object.assign(window.VOCAB,{
+"countries":{o:23,title:"Countries & Nationalities",fr:"Pays & nationalités",items:
+"le pays=country|la France=France|le Canada=Canada|le Québec=Quebec|l’Inde=India|les États-Unis=United States|l’Angleterre=England|l’Allemagne=Germany|l’Espagne=Spain|l’Italie=Italy|la Chine=China|le Japon=Japan|le Maroc=Morocco|la Belgique=Belgium|la Suisse=Switzerland|l’Europe=Europe|l’Afrique=Africa|l’Asie=Asia|l’Amérique=America|la nationalité=nationality|français=French (m)|française=French (f)|canadien=Canadian (m)|canadienne=Canadian (f)|indien=Indian (m)|indienne=Indian (f)|américain=American|anglais=English|allemand=German|espagnol=Spanish|italien=Italian|chinois=Chinese|japonais=Japanese|le citoyen=citizen|l’étranger=foreigner|l’immigration=immigration|la langue=language|la capitale=capital"},
+"abstract1":{o:24,title:"Everyday Concepts (1)",fr:"Notions du quotidien (1)",items:
+"la vie=life|la mort=death|le monde=world|la chose=thing|le truc=thing / gadget|la façon=way|la manière=manner|la sorte=kind|le genre=kind / type|l’exemple=example|le cas=case|le fait=fact|l’idée=idea|la raison=reason|le problème=problem|la solution=solution|la question=question|la réponse=answer|la situation=situation|le but=goal|le besoin=need|l’envie=desire|le choix=choice|la chance=luck / chance|le hasard=chance|le risque=risk|la possibilité=possibility|la difficulté=difficulty|le détail=detail|la partie=part|le morceau=piece|le nombre=number|la quantité=quantity|la moitié=half|le reste=rest|le niveau=level|l’ordre=order|le sens=meaning / direction|l’effet=effect|la cause=cause|le rapport=report / link|le lien=link|la différence=difference|le rôle=role|l’importance=importance|le pouvoir=power|la force=strength|la valeur=value|le sujet=subject / topic"},
+"abstract2":{o:25,title:"Everyday Concepts (2)",fr:"Notions du quotidien (2)",items:
+"l’avis=opinion|la pensée=thought|le doute=doubt|la vérité=truth|le mensonge=lie|l’erreur=mistake|la faute=fault / mistake|la réussite=success|l’échec=failure|le progrès=progress|le changement=change|le développement=development|la croissance=growth|l’effort=effort|l’habitude=habit|l’information=information|la nouvelle=piece of news|le secret=secret|la promesse=promise|l’accord=agreement|la décision=decision|l’objectif=objective|l’avantage=advantage|l’inconvénient=drawback|le moyen=means|l’occasion=opportunity|l’attention=attention|le soin=care|l’aide=help|le service=service|le conseil=advice|le projet=plan / project|la qualité=quality|le défaut=flaw|le succès=success|l’intérêt=interest"}
+});
+</script>
+<script>
+Object.assign(window.VOCAB,{
+"expressions":{o:26,title:"Survival Phrases",fr:"Expressions de survie",items:
+"Je voudrais…=I would like…|Je ne comprends pas=I don’t understand|Pouvez-vous répéter ?=Can you repeat?|Pouvez-vous parler plus lentement ?=Can you speak more slowly?|Comment dit-on … en français ?=How do you say … in French?|Qu’est-ce que ça veut dire ?=What does that mean?|Je ne sais pas=I don’t know|Bien sûr=Of course|Avec plaisir=With pleasure|Pas de problème=No problem|Ce n’est pas grave=It’s okay|Attendez un moment=Wait a moment|Où sont les toilettes ?=Where is the toilet?|Combien ça coûte ?=How much does it cost?|L’addition, s’il vous plaît=The bill, please|Je cherche…=I’m looking for…|Pouvez-vous m’aider ?=Can you help me?|Je suis perdu(e)=I’m lost|À quelle heure ?=At what time?|J’ai une question=I have a question|Je suis d’accord=I agree|Volontiers=Gladly|Je reviens tout de suite=I’ll be right back|Bonne chance=Good luck|Félicitations=Congratulations"},
+"tef_phrases":{o:27,title:"Exam Phrases (Speaking & Writing)",fr:"Phrases pour l’examen",items:
+"À mon avis=In my opinion|Je pense que=I think that|Je crois que=I believe that|Je trouve que=I find that|Selon moi=According to me|Il me semble que=It seems to me that|D’abord=First of all|Ensuite=Next|Enfin=Finally|Premièrement=Firstly|Deuxièmement=Secondly|Par exemple=For example|C’est-à-dire=That is to say|En effet=Indeed|Par contre=On the other hand|En revanche=However|De plus=Moreover|En outre=Furthermore|Cependant=However|Néanmoins=Nevertheless|Pour conclure=To conclude|En conclusion=In conclusion|En résumé=In summary|Je ne suis pas d’accord=I disagree|Tout à fait=Absolutely|Bien que=Although|Grâce à=Thanks to|À cause de=Because of|Afin de=In order to|D’une part=On one hand|D’autre part=On the other hand|Il faut que=It is necessary that|Je suis convaincu(e) que=I am convinced that"},
+"society":{o:28,title:"Society & Current Affairs",fr:"La société & l’actualité",items:
+"la société=society|le gouvernement=government|l’État=the state|le président=president|le ministre=minister|la loi=law|le droit=right / law|la politique=politics / policy|l’élection=election|le vote=vote|la population=population|l’économie=economy|l’impôt=tax|la guerre=war|la paix=peace|la liberté=freedom|l’égalité=equality|la justice=justice|le crime=crime|la sécurité=safety / security|la culture=culture|la religion=religion|les médias=the media|la presse=the press|la manifestation=demonstration|la grève=strike|le citoyen=citizen|la société=society|le chômage=unemployment|la pauvreté=poverty|la richesse=wealth|le développement durable=sustainable development|le changement climatique=climate change|l’égalité des chances=equal opportunity|la responsabilité=responsibility"}
+});
+</script>
+<script>
+Object.assign(window.VOCAB,{
+"verbs3":{o:29,title:"More Verbs (incl. reflexive)",fr:"D’autres verbes (et pronominaux)",items:
+"se lever=to get up|se laver=to wash (oneself)|se coucher=to go to bed|se réveiller=to wake up|se reposer=to rest|se promener=to take a walk|se dépêcher=to hurry|s’asseoir=to sit down|se rappeler=to remember|s’occuper de=to take care of|s’intéresser à=to be interested in|se passer=to happen|se trouver=to be located|se sentir=to feel|pleuvoir=to rain|neiger=to snow|durer=to last|manquer=to miss / lack|suffire=to be enough|valoir=to be worth|appartenir=to belong|ressembler=to resemble|dépendre=to depend|apparaître=to appear|disparaître=to disappear|augmenter=to increase|diminuer=to decrease|baisser=to lower / drop|remplir=to fill|vider=to empty|couper=to cut|jeter=to throw away|lancer=to throw / launch|attraper=to catch|pousser=to push|tirer=to pull|toucher=to touch|frapper=to knock / hit|ramener=to bring back|retirer=to withdraw|déménager=to move house|louer=to rent|détruire=to destroy|améliorer=to improve|développer=to develop|organiser=to organize|gérer=to manage|diriger=to lead|embaucher=to hire|signer=to sign|réaliser=to achieve / realize|remarquer=to notice|oser=to dare|éviter=to avoid|profiter=to make the most of|partager=to share|prêter=to lend|emprunter=to borrow|offrir=to offer / give|rendre=to give back|tuer=to kill"},
+"daily_life":{o:30,title:"Daily Life & Routine",fr:"La vie quotidienne",items:
+"la routine=routine|prendre une douche=to take a shower|se brosser les dents=to brush one’s teeth|faire les courses=to go shopping|faire le ménage=to do housework|faire la cuisine=to cook|faire la vaisselle=to do the dishes|faire la lessive=to do the laundry|faire le lit=to make the bed|sortir la poubelle=to take out the bin|prendre le petit-déjeuner=to have breakfast|aller au travail=to go to work|se détendre=to relax|regarder la télé=to watch TV|écouter de la musique=to listen to music|faire du sport=to do sport|se préparer=to get ready|la brosse à dents=toothbrush|le dentifrice=toothpaste|le shampoing=shampoo|le portefeuille=wallet|le réveil=alarm|l’emploi du temps=schedule|la tâche=task|le rendez-vous=appointment|tous les jours=every day|le matin=in the morning|le soir=in the evening|d’habitude=usually|à l’heure=on time|en retard=late|tôt=early|tard=late"},
+"measures":{o:31,title:"Quantities & Measures",fr:"Quantités & mesures",items:
+"le kilo=kilo|le gramme=gram|le litre=litre|le mètre=metre|le centimètre=centimetre|le kilomètre=kilometre|la boîte=box|le paquet=packet|la tranche=slice|la douzaine=dozen|la dizaine=about ten|la centaine=about a hundred|le tiers=a third|le quart=a quarter|plein de=lots of|un morceau de=a piece of|une bouteille de=a bottle of|un verre de=a glass of|une tasse de=a cup of|un kilo de=a kilo of|la longueur=length|la largeur=width|la hauteur=height|le poids=weight|la distance=distance|la vitesse=speed|vide=empty|plein=full|lourd=heavy|léger=light"}
+});
+</script>
+<script>
+Object.assign(window.VOCAB,{
+"communication":{o:32,title:"Communication & Relationships",fr:"Communication & relations",items:
+"la conversation=conversation|la discussion=discussion|la parole=speech / word|le silence=silence|le bruit=noise|la voix=voice|l’invitation=invitation|la visite=visit|la rencontre=meeting|l’appel=call|le courrier=mail|le timbre=stamp|l’enveloppe=envelope|le colis=parcel|la relation=relationship|l’amitié=friendship|le respect=respect|la confiance=trust|la dispute=argument|le conflit=conflict|le débat=debate|l’opinion=opinion|le commentaire=comment|la remarque=remark|la demande=request|la plainte=complaint|le compliment=compliment|la salutation=greeting|le geste=gesture|l’expression=expression|le ton=tone|le malentendu=misunderstanding|l’explication=explanation|le conseil=advice|le mensonge=lie|la vérité=truth|la réponse=answer|la question=question|écouter=to listen|raconter=to tell"},
+"describing2":{o:33,title:"More Adjectives",fr:"Encore des adjectifs",items:
+"épais=thick|fin=fine / thin|profond=deep|étroit=narrow|plat=flat|solide=solid|fragile=fragile|neuf=brand-new|usé=worn out|sec=dry|humide=damp|mouillé=wet|gelé=frozen|épuisé=exhausted|réel=real|principal=main|général=general|particulier=particular|spécial=special|précis=precise|exact=exact|complet=complete|évident=obvious|étrange=strange|incroyable=incredible|énorme=huge|minuscule=tiny|immense=immense|rare=rare|fréquent=frequent|habituel=usual|récent=recent|actuel=current|réussi=successful|raté=failed|prêt=ready|capable=able|responsable=responsible|disponible=available|absent=absent|présent=present"}
+});
+</script>
+<script>
+Object.assign(window.VOCAB,{
+"doctor":{o:34,title:"At the Doctor",fr:"Chez le médecin",items:
+"tousser=to cough|éternuer=to sneeze|avoir mal=to be in pain|guérir=to heal|soigner=to treat|la consultation=consultation|le symptôme=symptom|le traitement=treatment|l’opération=operation|le vaccin=vaccine|la piqûre=injection|le comprimé=tablet|le sirop=syrup|le pansement=bandage|se casser=to break (a bone)|se blesser=to get hurt|tomber malade=to fall ill|aller mieux=to feel better|respirer=to breathe|le poumon=lung|l’estomac=stomach|le muscle=muscle|la cheville=ankle|le poignet=wrist|le coude=elbow|la hanche=hip|la gorge=throat|le rhume=cold|la fièvre=fever|le rendez-vous=appointment|l’urgence=emergency|la douleur=pain|fatigué=tired|en bonne santé=in good health|le dentiste=dentist|les urgences=emergency room|la carte vitale=health card|prendre rendez-vous=to make an appointment"}
+});
+</script>
+<script>
+/* ============ FOUNDATION: PRONUNCIATION RULES (inserted after "Les sons") ============ */
+window.LESSON.splice(2,0,
+{id:"regles",part:"I. Les bases",num:99,en:"Pronunciation Rules",fr:"Les règles de prononciation",
+ blurb:"French spelling is regular. Master these rules and you can read almost ANY French word aloud — even ones you’ve never seen. This is the most important page in the whole document.",
+ secs:[
+  {t:"key",html:'Key: <code>ZH</code>=“s” in mea<i>s</i>ure · <code>ü</code>=tight rounded ee · <code>(n)</code>=nasal · CAPS=lightly stressed syllable.'},
+  {t:"note",html:'<b>The big idea:</b> unlike English, French is read by <i>rules</i>, not memorised word by word. Letters at the end are often silent, and stress is light and falls on the <b>last</b> syllable of a group.'},
+
+  {t:"subh",h:"Rule 1 — Final consonants are usually SILENT"},
+  {t:"note",html:'A written final consonant is usually not pronounced. The big exceptions are <b>c, r, f, l</b> — remember the English word <b>“CaReFuL”</b>.'},
+  {t:"chip",cards:[
+   {f:"petit",p:"puh-TEE",e:"final -t silent"},{f:"grand",p:"grah(n)",e:"final -d silent"},
+   {f:"trois",p:"trwah",e:"final -s silent"},{f:"nez",p:"nay",e:"final -z silent"},
+   {f:"parc",p:"park",e:"-c SOUNDED (CaReFuL)"},{f:"hiver",p:"ee-VEHR",e:"-r SOUNDED"},
+   {f:"chef",p:"shef",e:"-f SOUNDED"},{f:"avril",p:"a-VREEL",e:"-l SOUNDED"}]},
+
+  {t:"subh",h:"Rule 2 — Final -e is silent (and ‘wakes up’ the consonant before it)"},
+  {t:"chip",cards:[
+   {f:"table",p:"TABL",e:"final -e silent"},{f:"amie",p:"a-MEE",e:"final -e silent"},
+   {f:"grand",p:"grah(n)",e:"masc.: -d silent"},{f:"grande",p:"grah(n)d",e:"fem.: -e wakes the d"}]},
+  {t:"note",html:'This is why masculine and feminine sound different: the extra <b>-e</b> makes the final consonant audible.'},
+
+  {t:"subh",h:"Rule 3 — Accents change the sound"},
+  {t:"chip",cards:[
+   {f:"é",p:"ay",e:"café, été (closed e)"},{f:"è / ê",p:"eh",e:"père, fête (open e)"},
+   {f:"ç",p:"s",e:"français, garçon (soft s)"},{f:"ë / ï (tréma)",p:"split vowels",e:"Noël = no-EL"}]},
+
+  {t:"subh",h:"Rule 4 — C and G: soft before e / i / y, hard before a / o / u"},
+  {t:"chip",cards:[
+   {f:"merci, ce",p:"s",e:"c before e/i = S"},{f:"café, écouter",p:"k",e:"c before a/o/u = K"},
+   {f:"ça, leçon",p:"s",e:"ç = always S"},{f:"manger, girafe",p:"zh",e:"g before e/i = ZH"},
+   {f:"gâteau, légume",p:"hard g",e:"g before a/o/u = hard G"},{f:"guitare, langue",p:"hard g",e:"gu + e/i = hard G"}]},
+
+  {t:"subh",h:"Rule 5 — One S between vowels = Z (double SS = sharp S)"},
+  {t:"chip",cards:[
+   {f:"maison",p:"meh-ZO(N)",e:"single s = Z"},{f:"chose",p:"shohz",e:"s = Z"},
+   {f:"poisson",p:"pwa-SO(N)",e:"ss = sharp S"},{f:"dessert",p:"deh-SEHR",e:"ss = sharp S"}]},
+
+  {t:"subh",h:"Rule 6 — H is ALWAYS silent"},
+  {t:"chip",cards:[
+   {f:"heure",p:"uhr",e:"h silent"},{f:"hôtel",p:"oh-TEL",e:"h silent"},
+   {f:"l’homme",p:"lum",e:"h silent"}]},
+  {t:"note",html:'A few words have an “h aspiré” that just blocks linking (le <b>h</b>éros, les | héros) — but the h is still never a sound.'},
+
+  {t:"subh",h:"Rule 7 — Fixed letter teams (always the same sound)"},
+  {t:"chip",cards:[
+   {f:"ch",p:"SH",e:"chat, chaud"},{f:"ph",p:"F",e:"photo, phrase"},{f:"th",p:"T",e:"thé = just ‘tay’"},
+   {f:"gn",p:"NY",e:"montagne, gagner"},{f:"qu",p:"K",e:"qui, quatre"},{f:"ill",p:"ee-y",e:"fille, travailler"}]},
+
+  {t:"subh",h:"Rule 8 — Vowel teams = one single sound"},
+  {t:"chip",cards:[
+   {f:"ou",p:"oo",e:"vous, jour"},{f:"oi",p:"wah",e:"moi, trois"},{f:"au / eau",p:"oh",e:"chaud, eau"},
+   {f:"ai / ei",p:"eh",e:"mais, neige"},{f:"eu / œu",p:"uh",e:"deux, sœur"},{f:"ui",p:"wee",e:"huit, nuit"}]},
+
+  {t:"subh",h:"Rule 9 — Nasal vowels (the French ‘music’)"},
+  {t:"note",html:'A vowel + <b>n</b> or <b>m</b> at the end of a syllable becomes <b>nasal</b> (push air through the nose; do NOT pronounce the n/m). But if a vowel follows, or the n/m is doubled, it is <b>not</b> nasal.'},
+  {t:"chip",cards:[
+   {f:"an / en",p:"ah(n)",e:"France, enfant"},{f:"on",p:"oh(n)",e:"bon, maison"},
+   {f:"in / ain / ein",p:"a(n)",e:"vin, pain, plein"},{f:"un",p:"uh(n)",e:"un, brun"},
+   {f:"bonne",p:"bun",e:"NOT nasal (nn + e)"},{f:"animal",p:"a-nee-MAL",e:"NOT nasal (n + vowel)"}]},
+
+  {t:"subh",h:"Rule 10 — Liaison & stress"},
+  {t:"chip",cards:[
+   {f:"les amis",p:"lay-za-MEE",e:"silent -s links as Z"},{f:"vous avez",p:"voo-za-VAY",e:"liaison s→z"},
+   {f:"un grand homme",p:"a(n) grah(n)-TUM",e:"liaison d→t"},{f:"-tion",p:"syo(n)",e:"nation, attention"}]},
+  {t:"note",html:'<b>Stress:</b> French puts a light stress on the <b>last</b> syllable of a word or group — never the heavy English stress. Keep every vowel clean and even.'},
+
+  {t:"tef",html:'<b>Your goal, unlocked:</b> with these ten rules you can read a brand-new French word and be right most of the time. Read it by rule first, then tap to confirm with audio.'}
+ ]}
+);
+</script>
+<script>
+/* ---- B1–C1 expansion ---- */
+Object.assign(window.VOCAB,{
+"adv_verbs":{o:35,title:"Advanced Verbs (B1–C1)",fr:"Verbes avancés",items:
+"aborder=to tackle / approach|accéder=to access|accomplir=to accomplish|acquérir=to acquire|affirmer=to assert|aggraver=to worsen|améliorer=to improve|analyser=to analyse|annoncer=to announce|apercevoir=to glimpse|appliquer=to apply|approuver=to approve|assurer=to ensure|atteindre=to reach|attribuer=to attribute|avertir=to warn|bénéficier=to benefit|cesser=to cease|comporter=to involve|concerner=to concern|conclure=to conclude|concevoir=to conceive / design|confier=to entrust|confirmer=to confirm|consacrer=to devote|considérer=to consider|consister=to consist|constater=to observe|consulter=to consult|contenir=to contain|contribuer=to contribute|convaincre=to convince|déclarer=to declare|définir=to define|démontrer=to demonstrate|dénoncer=to denounce|dépasser=to exceed|déterminer=to determine|distinguer=to distinguish|effectuer=to carry out|élaborer=to draft / develop|encourager=to encourage|engager=to commit / hire|entraîner=to bring about|envisager=to envisage|établir=to establish|évaluer=to assess|exiger=to demand|exprimer=to express|favoriser=to favour|fournir=to provide|garantir=to guarantee|illustrer=to illustrate|impliquer=to involve|imposer=to impose|inciter=to encourage|justifier=to justify|maintenir=to maintain|menacer=to threaten|mener=to lead|négliger=to neglect|préciser=to specify|prévoir=to foresee / plan|priver=to deprive|provoquer=to cause|reconnaître=to recognise|réduire=to reduce|renforcer=to strengthen|représenter=to represent|résoudre=to solve|souligner=to stress|soutenir=to support|subir=to undergo|supposer=to suppose|surveiller=to monitor|témoigner=to testify|transmettre=to pass on|viser=to aim at|associer=to associate|comparer=to compare|disposer=to have available|entretenir=to maintain|estimer=to estimate / consider"},
+"acad_nouns":{o:36,title:"Abstract & Academic Nouns",fr:"Noms abstraits & savants",items:
+"l’analyse=analysis|l’approche=approach|l’aspect=aspect|l’augmentation=increase|la baisse=decrease|la capacité=capacity|la caractéristique=feature|la circonstance=circumstance|la comparaison=comparison|le comportement=behaviour|la condition=condition|la conséquence=consequence|le contexte=context|la contrainte=constraint|la contribution=contribution|la définition=definition|la demande=demand|la diminution=decrease|le domaine=field|la donnée=piece of data|l’élément=element|l’enjeu=stake / issue|l’ensemble=whole|l’étape=stage|l’évolution=development|l’exigence=requirement|le facteur=factor|le fonctionnement=working|la fréquence=frequency|l’hypothèse=hypothesis|l’impact=impact|l’influence=influence|l’initiative=initiative|le manque=lack|la mesure=measure|la méthode=method|le modèle=model|la nécessité=necessity|la notion=notion|l’obstacle=obstacle|l’origine=origin|la part=share|la perspective=perspective|le phénomène=phenomenon|le point de vue=point of view|la pratique=practice|la preuve=proof|le principe=principle|le processus=process|la proportion=proportion|la réalité=reality|la recherche=research|la réflexion=reflection|la source=source|la stratégie=strategy|le système=system|la tendance=trend|la théorie=theory|le type=type|le critère=criterion|la dimension=dimension|l’ampleur=scale / extent|le cadre=framework|le constat=observation|le défi=challenge"},
+"argument":{o:37,title:"Argument & Linking (advanced)",fr:"Argumenter & relier",items:
+"Bien que=Although|Quoique=Even though|Tandis que=Whereas|Alors que=While / whereas|Pourtant=Yet|Toutefois=However|Or=And yet|Ainsi=Thus|Par conséquent=Consequently|De ce fait=As a result|C’est pourquoi=That is why|Étant donné que=Given that|Puisque=Since|En raison de=Because of|Dans la mesure où=Insofar as|À condition que=Provided that|Au cas où=In case|Malgré=Despite|En dépit de=In spite of|Contrairement à=Contrary to|Par rapport à=Compared to|Quant à=As for|En ce qui concerne=Regarding|D’ailleurs=Besides|De surcroît=In addition|Notamment=Notably|En particulier=In particular|À savoir=Namely|Autrement dit=In other words|Force est de constater que=One must admit that|Il convient de=It is appropriate to|Il s’agit de=It is about|Il est indéniable que=It is undeniable that|Certes … mais=Admittedly … but|En somme=In short|Tout bien considéré=All things considered|Pour ma part=For my part|Cela dit=That said|En fin de compte=Ultimately|Au fond=Basically|Dans l’ensemble=On the whole|D’un point de vue=From the standpoint of|À première vue=At first sight|En revanche=On the other hand"}
+});
+</script>
+<script>
+Object.assign(window.VOCAB,{
+"nuance_adj":{o:38,title:"Nuanced Adjectives (B1–C1)",fr:"Adjectifs nuancés",items:
+"abondant=abundant|absurde=absurd|adéquat=adequate|ambigu=ambiguous|approprié=appropriate|considérable=considerable|constant=constant|contemporain=contemporary|controversé=controversial|convaincant=convincing|crucial=crucial|décisif=decisive|délicat=delicate / tricky|discret=discreet|durable=lasting / sustainable|efficace=effective|élevé=high|émergent=emerging|équitable=fair|essentiel=essential|étonnant=astonishing|excessif=excessive|exigeant=demanding|favorable=favourable|fiable=reliable|flagrant=blatant|fondamental=fundamental|global=overall|honteux=shameful|idéal=ideal|imprévisible=unpredictable|inattendu=unexpected|incertain=uncertain|inévitable=inevitable|injuste=unfair|innovant=innovative|insuffisant=insufficient|intense=intense|inquiétant=worrying|majeur=major|manifeste=evident|massif=massive|mondial=global|multiple=multiple|mutuel=mutual|négligeable=negligible|nombreux=numerous|nuisible=harmful|optimal=optimal|paradoxal=paradoxical|partial=biased|pertinent=relevant|précieux=precious|préoccupant=worrying|primordial=paramount|progressif=gradual|radical=radical|raisonnable=reasonable|relatif=relative|remarquable=remarkable|répandu=widespread|satisfaisant=satisfactory|significatif=significant|spécifique=specific|stable=stable|subtil=subtle|suffisant=sufficient|supérieur=upper / superior|systématique=systematic|théorique=theoretical|urgent=urgent|valable=valid|variable=variable|vraisemblable=likely|coûteux=costly|rentable=profitable|durable=durable|inquiet=anxious"},
+"society2":{o:39,title:"Society, Politics & Economy",fr:"Société, politique & économie",items:
+"le pouvoir=power|l’autorité=authority|la citoyenneté=citizenship|la démocratie=democracy|la dictature=dictatorship|le parti=political party|la réforme=reform|le devoir=duty|la discrimination=discrimination|l’injustice=injustice|la corruption=corruption|le scandale=scandal|la classe sociale=social class|l’inégalité=inequality|l’emploi=employment|le salaire=wage|la taxe=tax|la crise=crisis|la récession=recession|l’inflation=inflation|le marché=market|le commerce=trade|l’industrie=industry|la consommation=consumption|le consommateur=consumer|la production=production|le bénéfice=profit|l’investissement=investment|la concurrence=competition|la mondialisation=globalisation|l’intégration=integration|la diversité=diversity|la natalité=birth rate|le vieillissement=ageing|la violence=violence|la criminalité=crime|le tribunal=court|la peine=sentence|le ministère=ministry|la politique publique=public policy|le service public=public service|l’administration=administration|la fiscalité=taxation|la solidarité=solidarity|le bien commun=common good|l’opinion publique=public opinion|le sondage=opinion poll|la campagne=campaign|le candidat=candidate|le scrutin=ballot|le pouvoir d’achat=purchasing power|le citoyen=citizen|la mesure=measure / step"},
+"science2":{o:40,title:"Environment, Science & Health",fr:"Environnement, science & santé",items:
+"le réchauffement=warming|le changement climatique=climate change|les déchets=waste|le recyclage=recycling|le tri=sorting|l’énergie renouvelable=renewable energy|le pétrole=oil|le charbon=coal|le gaz=gas|le nucléaire=nuclear power|le solaire=solar power|l’éolienne=wind turbine|la biodiversité=biodiversity|l’espèce=species|la déforestation=deforestation|la sécheresse=drought|l’inondation=flood|la catastrophe=disaster|la ressource=resource|le gaspillage=waste|écologique=ecological|la découverte=discovery|le scientifique=scientist|l’innovation=innovation|l’intelligence artificielle=artificial intelligence|le numérique=digital tech|le virus=virus|l’épidémie=epidemic|la pandémie=pandemic|le traitement=treatment|la prévention=prevention|le bien-être=well-being|la santé mentale=mental health|l’alimentation=diet|la nutrition=nutrition|l’obésité=obesity|le diagnostic=diagnosis|la guérison=recovery|l’expérience=experiment|la donnée=data|la pollution=pollution|durable=sustainable|le carburant=fuel|l’émission=emission|le gaz à effet de serre=greenhouse gas"}
+});
+</script>
+<script>
+Object.assign(window.VOCAB,{
+"idioms":{o:41,title:"Idiomatic & Set Phrases",fr:"Expressions idiomatiques",items:
+"avoir lieu=to take place|avoir besoin de=to need|avoir envie de=to feel like|avoir raison=to be right|avoir tort=to be wrong|avoir l’air=to seem|avoir du mal à=to struggle to|faire attention=to pay attention|faire partie de=to be part of|faire face à=to face|faire la queue=to queue|prendre conscience de=to become aware of|prendre soin de=to take care of|prendre une décision=to make a decision|mettre en place=to set up|mettre en œuvre=to implement|mettre l’accent sur=to emphasise|tenir compte de=to take into account|se rendre compte de=to realise|valoir la peine=to be worth it|jouer un rôle=to play a role|porter sur=to be about|donner lieu à=to give rise to|avoir tendance à=to tend to|être en train de=to be doing (now)|être sur le point de=to be about to|au fur et à mesure=gradually|de plus en plus=more and more|de moins en moins=less and less|peu à peu=little by little|à peine=hardly|du coup=so / as a result|à vrai dire=to tell the truth|par hasard=by chance|à la fois=at the same time|le cas échéant=if applicable|en quelque sorte=in a way|à long terme=in the long run|à court terme=in the short run|grosso modo=roughly|en moyenne=on average|au lieu de=instead of|faute de=for lack of|sous prétexte de=on the pretext of|de sorte que=so that|si bien que=so that|au point que=to the point that|tomber en panne=to break down|avoir beau=to do in vain"},
+"discourse":{o:42,title:"Discourse Adverbs",fr:"Adverbes de discours",items:
+"apparemment=apparently|évidemment=obviously|effectivement=indeed|principalement=mainly|essentiellement=essentially|généralement=generally|particulièrement=particularly|précisément=precisely|justement=as it happens|finalement=finally|globalement=overall|relativement=relatively|véritablement=truly|réellement=really|certainement=certainly|probablement=probably|sans doute=most likely|forcément=necessarily|progressivement=gradually|immédiatement=immediately|actuellement=currently|désormais=from now on|auparavant=beforehand|dorénavant=henceforth|aussitôt=at once|soudain=suddenly|brusquement=abruptly|rapidement=quickly|difficilement=with difficulty|facilement=easily|heureusement=fortunately|malheureusement=unfortunately|par ailleurs=moreover|en fait=in fact|au contraire=on the contrary|davantage=more|notamment=in particular|guère=hardly|aussitôt que=as soon as|tout à coup=all of a sudden|de nouveau=again|volontiers=gladly|exprès=on purpose|à nouveau=anew"},
+"culture":{o:43,title:"Media, Culture & Ideas",fr:"Médias, culture & idées",items:
+"les médias=the media|la presse=the press|le journalisme=journalism|l’article=article|le reportage=report|l’actualité=current events|le titre=headline|la une=front page|la chaîne=channel|l’émission=programme|le documentaire=documentary|la publicité=advertising|le public=audience / public|le lecteur=reader|le spectateur=viewer|la rumeur=rumour|la liberté d’expression=freedom of speech|la censure=censorship|l’influence=influence|la culture=culture|l’art=art|l’œuvre=work (of art)|l’artiste=artist|l’écrivain=writer|le roman=novel|la poésie=poetry|le patrimoine=heritage|la tradition=tradition|la croyance=belief|la valeur=value|l’identité=identity|la langue maternelle=mother tongue|le débat de société=social debate|la pensée=thought|le raisonnement=reasoning|l’argument=argument|le préjugé=prejudice|le stéréotype=stereotype|la conviction=conviction|le sens critique=critical thinking|la connaissance=knowledge|l’éducation=education|le savoir-faire=know-how|la créativité=creativity"}
+});
+</script>
+<script>
+/* ============ GRAMMAR B1 (pushed) ============ */
+window.LESSON.push(
+{id:"object_pron",part:"Grammaire",num:0,en:"Object Pronouns (COD/COI)",fr:"Les pronoms compléments",
+ blurb:"Replace nouns so you don’t repeat them. They sit BEFORE the verb.",
+ secs:[
+  {t:"note",html:'<b>Direct (COD)</b>: me, te, le/la, nous, vous, les. <b>Indirect (COI — “to someone”)</b>: me, te, lui, nous, vous, leur.'},
+  {t:"subh",h:"Direct — COD"},
+  {t:"chip",cards:[{f:"Je le vois",e:"I see him / it"},{f:"Je la connais",e:"I know her / it"},{f:"Je les aime",e:"I like them"},{f:"Tu me comprends",e:"you understand me"},{f:"Il nous attend",e:"he’s waiting for us"},{f:"Je vous écoute",e:"I’m listening to you"}]},
+  {t:"subh",h:"Indirect — COI (à quelqu’un)"},
+  {t:"chip",cards:[{f:"Je lui parle",e:"I speak to him/her"},{f:"Je leur donne",e:"I give to them"},{f:"Il me téléphone",e:"he phones me"},{f:"Je te réponds",e:"I answer you"}]},
+  {t:"subh",h:"Placement & double pronouns"},
+  {t:"chip",cards:[{f:"Je le veux",e:"before the verb"},{f:"Je vais le faire",e:"before the infinitive"},{f:"Ne le fais pas",e:"in the negative"},{f:"Il me le donne",e:"he gives it to me"}]},
+  {t:"note",html:'Order when two combine: <b>me/te/nous/vous → le/la/les → lui/leur → y → en</b>.'}
+ ]},
+{id:"y_en",part:"Grammaire",num:0,en:"The Pronouns Y and EN",fr:"Les pronoms Y et EN",
+ blurb:"Two tiny words that are everywhere in real French.",
+ secs:[
+  {t:"note",html:'<b>Y</b> replaces <i>à + place/thing</i> (there / about it). <b>EN</b> replaces <i>de + thing</i> or a quantity (some / of it).'},
+  {t:"subh",h:"Y"},{t:"chip",cards:[{f:"J’y vais",e:"I’m going there"},{f:"J’y pense",e:"I’m thinking about it"},{f:"Il y a",e:"there is / are"},{f:"On y va !",e:"let’s go!"}]},
+  {t:"subh",h:"EN"},{t:"chip",cards:[{f:"J’en veux",e:"I want some"},{f:"J’en ai trois",e:"I have three (of them)"},{f:"J’en viens",e:"I’ve just come from there"},{f:"Je m’en occupe",e:"I’ll take care of it"},{f:"J’en bois beaucoup",e:"I drink a lot of it"}]}
+ ]},
+{id:"relatives",part:"Grammaire",num:0,en:"Relative Pronouns",fr:"Les pronoms relatifs",
+ blurb:"qui · que · où · dont — they join two ideas into one smoother sentence (vital from B1).",
+ secs:[
+  {t:"note",html:'<b>qui</b> = subject (who/which) · <b>que</b> = object (that/which) · <b>où</b> = where/when · <b>dont</b> = of/about which, whose (replaces <i>de</i>).'},
+  {t:"chip",cards:[{f:"la femme qui parle",e:"the woman who speaks (subject)"},{f:"le livre que je lis",e:"the book (that) I read (object)"},{f:"la ville où j’habite",e:"the city where I live"},{f:"le jour où il est venu",e:"the day (when) he came"},{f:"la chose dont je parle",e:"the thing I talk about (parler de)"},{f:"l’homme dont la voiture est rouge",e:"the man whose car is red"}]},
+  {t:"subh",h:"With ‘ce’ = what"},
+  {t:"chip",cards:[{f:"ce qui est important",e:"what is important"},{f:"ce que je veux",e:"what I want"},{f:"ce dont j’ai besoin",e:"what I need (avoir besoin de)"}]}
+ ]},
+{id:"comparatif",part:"Grammaire",num:0,en:"Comparatives & Superlatives",fr:"Le comparatif & le superlatif",
+ blurb:"",
+ secs:[
+  {t:"note",html:'<b>plus … que</b> (more), <b>moins … que</b> (less), <b>aussi … que</b> (as). Superlative: <b>le/la/les plus / moins</b>.'},
+  {t:"chip",cards:[{f:"plus grand que",e:"bigger than"},{f:"moins cher que",e:"less expensive than"},{f:"aussi rapide que",e:"as fast as"},{f:"le plus important",e:"the most important"},{f:"la moins difficile",e:"the least difficult"},{f:"plus de temps",e:"more time (plus de + noun)"},{f:"moins d’argent",e:"less money"}]},
+  {t:"subh",h:"Irregular"},
+  {t:"chip",cards:[{f:"bon → meilleur",e:"good → better (adj)"},{f:"bien → mieux",e:"well → better (adv)"},{f:"mauvais → pire",e:"bad → worse"},{f:"le meilleur",e:"the best"}]}
+ ]},
+{id:"futur",part:"Grammaire",num:0,en:"The Simple Future",fr:"Le futur simple",
+ blurb:"“I will…”. Infinitive + endings; some verbs use a special stem.",
+ secs:[
+  {t:"note",html:'Endings on the infinitive: <b>-ai, -as, -a, -ons, -ez, -ont</b> (drop the final -e of -re verbs).'},
+  {t:"conj",inf:"parler (futur)",infp:"par-luh-RAY",e:"to speak",rows:[{f:"je parlerai",e:"I will speak"},{f:"tu parleras",e:"you will speak"},{f:"il/elle parlera",e:"he/she will speak"},{f:"nous parlerons",e:"we will speak"},{f:"vous parlerez",e:"you will speak"},{f:"ils/elles parleront",e:"they will speak"}]},
+  {t:"subh",h:"Irregular stems (learn these!)"},
+  {t:"chip",cards:[{f:"je serai",e:"être → I’ll be"},{f:"j’aurai",e:"avoir → I’ll have"},{f:"j’irai",e:"aller → I’ll go"},{f:"je ferai",e:"faire → I’ll do"},{f:"je pourrai",e:"pouvoir → I’ll be able"},{f:"je voudrai",e:"vouloir → I’ll want"},{f:"je viendrai",e:"venir → I’ll come"},{f:"je verrai",e:"voir → I’ll see"},{f:"je devrai",e:"devoir → I’ll have to"},{f:"je saurai",e:"savoir → I’ll know"},{f:"il faudra",e:"falloir → it’ll be necessary"}]},
+  {t:"note",html:'After <b>quand</b> about the future, French uses the future: <i>Quand je serai grand…</i>'}
+ ]},
+{id:"conditionnel",part:"Grammaire",num:0,en:"The Conditional",fr:"Le conditionnel présent",
+ blurb:"“I would…”. For politeness, wishes, and hypotheticals.",
+ secs:[
+  {t:"note",html:'Future stem + imparfait endings (<b>-ais, -ais, -ait, -ions, -iez, -aient</b>).'},
+  {t:"chip",cards:[{f:"Je voudrais…",e:"I would like…"},{f:"J’aimerais…",e:"I would love…"},{f:"Pourriez-vous… ?",e:"Could you…?"},{f:"Je serais",e:"I would be"},{f:"On pourrait",e:"we could"},{f:"Ce serait bien",e:"that would be nice"}]},
+  {t:"subh",h:"Hypothesis: si + imparfait → conditionnel"},
+  {t:"chip",cards:[{f:"Si j’avais le temps, je viendrais",e:"If I had time, I would come"},{f:"Si j’étais riche, je voyagerais",e:"If I were rich, I’d travel"}]}
+ ]}
+);
+</script>
+<script>
+/* ============ GRAMMAR B2 (pushed) ============ */
+window.LESSON.push(
+{id:"subjonctif",part:"Grammaire",num:0,en:"The Subjunctive (B2 — key!)",fr:"Le subjonctif présent",
+ blurb:"The clearest marker of a B2 speaker. Used after expressions of necessity, will, emotion, and doubt.",
+ secs:[
+  {t:"note",html:'Formation: take the <b>ils</b>-form of the present, drop <b>-ent</b>, add <b>-e, -es, -e, -ions, -iez, -ent</b>. Triggered after <i>que</i> with: il faut que, vouloir que, pour que, bien que, avant que, à condition que, and verbs of emotion/doubt.'},
+  {t:"chip",cards:[{f:"il faut que je parle",e:"I must speak"},{f:"il faut que tu fasses",e:"you must do (faire→fasse)"},{f:"je veux que tu viennes",e:"I want you to come"},{f:"bien qu’il soit fatigué",e:"although he’s tired"},{f:"pour que nous ayons le temps",e:"so that we have time"},{f:"je doute qu’il puisse",e:"I doubt he can"},{f:"avant que tu partes",e:"before you leave"},{f:"il est important que vous sachiez",e:"it’s important you know"}]},
+  {t:"subh",h:"Irregular subjunctives (memorise)"},
+  {t:"chip",cards:[{f:"que je sois",e:"être"},{f:"que j’aie",e:"avoir"},{f:"que je fasse",e:"faire"},{f:"que j’aille",e:"aller"},{f:"que je puisse",e:"pouvoir"},{f:"que je sache",e:"savoir"},{f:"que je veuille",e:"vouloir"}]},
+  {t:"tef",html:'<b>NCLC 7+:</b> using the subjunctive correctly in writing & speaking is exactly the structure that lifts you from B1 to B2.'}
+ ]},
+{id:"plusqueparfait",part:"Grammaire",num:0,en:"The Pluperfect",fr:"Le plus-que-parfait",
+ blurb:"“Had done” — an action that happened before another past action.",
+ secs:[
+  {t:"note",html:'<b>imparfait</b> of avoir/être + past participle.'},
+  {t:"chip",cards:[{f:"J’avais mangé",e:"I had eaten"},{f:"Il était parti",e:"he had left"},{f:"Nous avions fini",e:"we had finished"},{f:"Quand je suis arrivé, il était déjà parti",e:"When I arrived, he had already left"}]}
+ ]},
+{id:"hypothese",part:"Grammaire",num:0,en:"“Si” Sentences (3 types)",fr:"Les phrases avec « si »",
+ blurb:"How to express conditions and hypotheses — a core B1/B2 skill.",
+ secs:[
+  {t:"note",html:'<b>Type 1 (real):</b> Si + présent → futur. <b>Type 2 (unreal now):</b> Si + imparfait → conditionnel présent. <b>Type 3 (unreal past):</b> Si + plus-que-parfait → conditionnel passé.'},
+  {t:"chip",cards:[{f:"Si j’ai le temps, je viendrai",e:"If I have time, I’ll come (1)"},{f:"Si j’avais le temps, je viendrais",e:"If I had time, I’d come (2)"},{f:"Si j’avais eu le temps, je serais venu",e:"If I’d had time, I’d have come (3)"}]},
+  {t:"subh",h:"Conditional past (type 3)"},
+  {t:"chip",cards:[{f:"j’aurais fait",e:"I would have done"},{f:"je serais allé",e:"I would have gone"},{f:"on aurait pu",e:"we could have"}]}
+ ]},
+{id:"passif",part:"Grammaire",num:0,en:"The Passive Voice",fr:"La voix passive",
+ blurb:"",
+ secs:[
+  {t:"note",html:'<b>être</b> (conjugated) + past participle (agrees with the subject) + optional <b>par</b> + agent.'},
+  {t:"chip",cards:[{f:"La lettre est écrite",e:"the letter is written"},{f:"Le livre a été publié",e:"the book was published"},{f:"La maison sera vendue",e:"the house will be sold"},{f:"Le projet est dirigé par Marie",e:"the project is led by Marie"}]},
+  {t:"note",html:'French often prefers <b>on</b> + active: <i>On parle français ici</i> = “French is spoken here”.'}
+ ]},
+{id:"discours",part:"Grammaire",num:0,en:"Reported Speech",fr:"Le discours indirect",
+ blurb:"Reporting what someone said. Tenses shift back one step.",
+ secs:[
+  {t:"note",html:'présent → imparfait · passé composé → plus-que-parfait · futur → conditionnel. Link with <i>que</i>, <i>si</i>, or a question word.'},
+  {t:"chip",cards:[{f:"Il dit qu’il est fatigué",e:"he says he’s tired"},{f:"Il a dit qu’il était fatigué",e:"he said he was tired"},{f:"Elle demande si tu viens",e:"she asks if you’re coming"},{f:"Il m’a demandé où j’habitais",e:"he asked where I lived"},{f:"Il a dit qu’il viendrait",e:"he said he would come"}]}
+ ]},
+{id:"gerondif",part:"Grammaire",num:0,en:"The Gerund",fr:"Le gérondif",
+ blurb:"“While/by doing”. Adds fluency and links actions elegantly.",
+ secs:[
+  {t:"note",html:'<b>en</b> + present participle (nous-stem + <b>-ant</b>). Two actions at once, or “by doing”.'},
+  {t:"chip",cards:[{f:"en mangeant",e:"while eating"},{f:"en travaillant",e:"by working"},{f:"En arrivant, j’ai vu…",e:"(Up)on arriving, I saw…"},{f:"Il lit en marchant",e:"he reads while walking"}]},
+  {t:"subh",h:"Present participle alone"},
+  {t:"chip",cards:[{f:"une personne parlant français",e:"a person speaking French"},{f:"sachant cela",e:"knowing that"}]}
+ ]}
+);
+</script>
+<script>
+/* ===== NEW MODULES: TEF overview · English-grammar glossary · cognates · speaking ===== */
+window.LESSON.push(
+{id:"fondamentaux",part:"Préface",num:0,en:"Why French Sounds the Way It Does",fr:"Les fondamentaux : pourquoi ça se prononce ainsi",
+ blurb:"Read this before anything else. French spelling looks intimidating but it is RULE-BASED — once you know these rules you can pronounce almost any word you’ve never seen. Tap every example to hear it.",
+ secs:[
+  {t:"note",html:'<b>The big idea:</b> French spelling was frozen centuries ago, so many letters are written but <b>not said</b>. These rules tell you which letters to drop and which to keep. Learn the <i>system</i> first — the words come easily afterwards.'},
+  {t:"subh",h:"Rule 1 — Final consonants are usually SILENT"},
+  {t:"note",html:'A consonant at the <b>end</b> of a word is normally <b>not pronounced</b>. That’s why words sound shorter than they look.'},
+  {t:"chip",cards:[{f:"grand",e:"big — d silent → “grahn”"},{f:"petit",e:"small — t silent → “puh-tee”"},{f:"trois",e:"three — s silent → “trwah”"},{f:"chaud",e:"hot — d silent → “show”"},{f:"vous",e:"you — s silent → “voo”"}]},
+  {t:"key",html:'<b>Exception — “CaReFuL”:</b> final <code>c, r, f, l</code> ARE usually pronounced. Remember the English word <b>CaReFuL</b> = C R F L.'},
+  {t:"chip",cards:[{f:"avec",e:"with — c sounded"},{f:"bonjour",e:"hello — r sounded"},{f:"neuf",e:"nine — f sounded"},{f:"animal",e:"animal — l sounded"}]},
+  {t:"subh",h:"Rule 2 — Final -e is silent, but ‘switches on’ the consonant before it"},
+  {t:"note",html:'A final <b>-e</b> is silent, yet it makes the consonant <i>before</i> it pronounced. This is the main way French marks the <b>feminine</b> — and why masculine vs feminine often sound different.'},
+  {t:"chip",cards:[{f:"vert / verte",e:"green m/f — “vair” vs “vairt”"},{f:"grand / grande",e:"big m/f — “grahn” vs “grahnd”"},{f:"petit / petite",e:"small m/f — “puh-tee” vs “puh-teet”"},{f:"français / française",e:"French m/f — “frahn-say” vs “frahn-sez”"}]},
+  {t:"subh",h:"Rule 3 — Nasal vowels (what makes French sound French)"},
+  {t:"note",html:'When a vowel is followed by <b>n</b> or <b>m</b> with nothing after, you don’t say the n/m — the vowel becomes <b>nasal</b> (air through the nose). The four main ones:'},
+  {t:"chip",cards:[{f:"sans",e:"an/en = “ahn” (without)"},{f:"bon",e:"on = “ohn” (good)"},{f:"pain",e:"in/ain/ein = “an” (bread)"},{f:"un",e:"un = “uhn” (a/one)"}]},
+  {t:"key",html:'If a vowel <b>follows</b> the n/m (e.g. <i>bonne, année</i>), the n/m IS said and the vowel is <b>not</b> nasal. That’s why <b>bon</b> (nasal) and <b>bonne</b> (clear) sound different.'},
+  {t:"subh",h:"Rule 4 — Accents change the sound and the meaning"},
+  {t:"note",html:'Accents are not decoration — they tell you how to say a letter or which word is meant.'},
+  {t:"chip",cards:[{f:"café",e:"é = closed “ay”"},{f:"mère",e:"è = open “eh”"},{f:"être",e:"ê = open “eh” (a lost s)"},{f:"garçon",e:"ç = soft “s” before a/o/u"},{f:"où",e:"où = where (vs ou = or)"}]},
+  {t:"subh",h:"Rule 5 — Letter combos that always sound one way"},
+  {t:"chip",cards:[{f:"chat",e:"ch = “sh”"},{f:"nous",e:"ou = “oo”"},{f:"moi",e:"oi = “wah”"},{f:"beau",e:"au/eau = “oh”"},{f:"lait",e:"ai = “eh”"},{f:"montagne",e:"gn = “ny”"},{f:"qui",e:"qu = “k”"},{f:"fille",e:"ill = “y”"}]},
+  {t:"key",html:'<b>c</b> & <b>g</b> are soft before e/i/y, hard before a/o/u: <i>ci/ce</i>=“s”, <i>ca/co/cu</i>=“k”; <i>gi/ge</i>=“zh”, <i>ga/go/gu</i>=hard g. <b>s</b> between two vowels = “z” (<i>maison</i> = “may-zon”).'},
+  {t:"subh",h:"Rule 6 — Liaison & élision (words link together)"},
+  {t:"note",html:'<b>Liaison:</b> a silent final consonant wakes up when the next word starts with a vowel, to keep speech smooth.'},
+  {t:"chip",cards:[{f:"vous avez",e:"“voo-z-avay” — the s links"},{f:"les amis",e:"“lay-z-ami” — the s links"},{f:"un grand homme",e:"“grahn-t-om” — the d links"}]},
+  {t:"note",html:'<b>Élision:</b> a/e drop before a vowel and become an apostrophe — <i>le+ami → l’ami</i>, <i>je+ai → j’ai</i> — to avoid two vowels clashing.'},
+  {t:"subh",h:"Rule 7 — Rhythm & stress"},
+  {t:"note",html:'French has <b>no heavy stress</b> like English. Syllables are even, with a tiny lift on the <b>last</b> syllable of a group. Keep them smooth and equal — this rhythm is half of sounding French.'},
+  {t:"subh",h:"Why gender exists — and how to guess it"},
+  {t:"note",html:'Every noun is <b>masculine</b> (le) or <b>feminine</b> (la). It’s grammatical, not logical (<i>la table</i> is “feminine”). It matters because articles and adjectives must <b>agree</b>, and it changes pronunciation. You can <b>guess</b> it ~80% of the time from the ending:'},
+  {t:"chip",cards:[
+   {f:"la nation",e:"-tion/-sion → feminine"},{f:"la liberté",e:"-té/-tié → feminine"},
+   {f:"la fourchette",e:"-ette/-elle → feminine"},{f:"la science",e:"-ence/-ance → feminine"},
+   {f:"le bateau",e:"-eau → masculine"},{f:"le gouvernement",e:"-ment → masculine"},
+   {f:"le fromage",e:"-age → masculine"},{f:"le tourisme",e:"-isme → masculine"}]},
+  {t:"key",html:'<b>Learn these exceptions by heart:</b> <i>le musée, le lycée</i> (m.); <i>la page, la plage, la cage, l’image</i> (f. despite -age); <i>le silence</i> (m.); <i>l’eau</i> (f.); <i>la fin</i> (f.). When unsure, <b>always learn a noun with its article</b> (le/la), never alone.'},
+  {t:"tef",html:'<b>For the TEF:</b> wrong gender is one of the most-counted errors in Writing & Speaking. Mastering these rules first saves real points later — which is why this section comes before the alphabet.'}
+ ]},
+{id:"tef_overview",part:"Préface",num:0,en:"The TEF Canada Exam",fr:"L’examen TEF Canada",
+ blurb:"Read this first — it tells you exactly what you’re aiming for.",
+ secs:[
+  {t:"note",html:'<b>What it is:</b> TEF Canada (Le français des affaires / CCI Paris) is accepted by IRCC for Express Entry. Four tests, same day: <b>Listening, Reading, Writing, Speaking</b>. Each is scored 0–699 and mapped to an NCLC (=CLB) level.'},
+  {t:"tef",html:'<b>Your target:</b> <b>NCLC 7 ≈ B2</b>, the usual Express Entry goal for maximum French points. Crucial rule: your overall level is your <b>lowest</b> section — so no skill can be weak.'},
+  {t:"subh",h:"Listening — Compréhension orale"},
+  {t:"note",html:'40 questions, ~40 min, at natural speed; you <b>cannot go back</b>. Most items play <b>once</b> with 4 options. <b>Since 1 Sept 2025:</b> the <i>micro-trottoir</i> (street-interview) items have <b>3 options</b> instead of 4, and the longer <b>interview</b> segments are <b>played twice</b>. No negative marking (+1 correct, 0 wrong/blank) — always guess. Still the hardest section: train your ear daily.'},
+  {t:"subh",h:"Reading — Compréhension écrite"},
+  {t:"note",html:'40 questions, 60 min. You <b>can</b> navigate freely. Reading speed + vocabulary decide your score.'},
+  {t:"subh",h:"Writing — Expression écrite"},
+  {t:"note",html:'Section A: continue an article (<b>80+ words</b>, 25 min). Section B: express &amp; justify a viewpoint (<b>200+ words</b>, 35 min). Graded by examiners on communication, vocabulary, grammar, organisation.'},
+  {t:"subh",h:"Speaking — Expression orale"},
+  {t:"note",html:'15 min, recorded. Section A (5 min): get information by <b>asking questions</b>. Section B (10 min): <b>persuade</b>. Use a structure: position → 2 reasons → example → conclusion.'},
+  {t:"tef",html:'<b>How to use this document:</b> it builds the <i>knowledge</i> — rules, A1→B2 grammar, ~2,500 words. Pair it with daily listening and corrected speaking/writing, and it becomes a real path to NCLC 7+.'}
+ ]},
+{id:"glossary",part:"Préface",num:0,en:"English Grammar Terms",fr:"Les mots de grammaire (anglais)",
+ blurb:"A quick refresher of the English grammar words used in this document, so the French explanations make sense.",
+ secs:[{t:"gloss",items:[
+  {t:"Noun (nom)",d:"a person, place, thing or idea.",x:"dog, city, freedom — chien, ville, liberté"},
+  {t:"Verb (verbe)",d:"an action or state of being.",x:"to eat, to be — manger, être"},
+  {t:"Adjective (adjectif)",d:"describes a noun.",x:"big, red — grand, rouge"},
+  {t:"Adverb (adverbe)",d:"describes a verb/adjective (often how/when/how much).",x:"quickly, very — vite, très"},
+  {t:"Article",d:"the small word before a noun (the / a / some).",x:"the cat — le chat"},
+  {t:"Pronoun (pronom)",d:"replaces a noun.",x:"he, it, them — il, le, les"},
+  {t:"Preposition (préposition)",d:"shows relationship/position.",x:"in, on, to — dans, sur, à"},
+  {t:"Conjunction (conjonction)",d:"links words or ideas.",x:"and, but, because — et, mais, parce que"},
+  {t:"Gender (genre)",d:"in French every noun is masculine (m) or feminine (f).",x:"le livre (m), la table (f)"},
+  {t:"Singular / Plural",d:"one vs more than one.",x:"book / books — livre / livres"},
+  {t:"Subject",d:"who/what does the action.",x:"I in “I speak” — Je parle"},
+  {t:"Object",d:"who/what receives the action (direct) or benefits (indirect).",x:"the book in “I read the book”"},
+  {t:"Tense (temps)",d:"when the action happens (past/present/future).",x:"I ate / I eat / I will eat"},
+  {t:"Conjugation",d:"changing a verb to match the subject & tense.",x:"je parle, tu parles, il parle"},
+  {t:"Infinitive (infinitif)",d:"the base ‘to…’ form of a verb.",x:"to speak — parler"},
+  {t:"Vowel / Consonant",d:"vowels = a e i o u (y); consonants = the rest.",x:"a, e (vowels); b, c (consonants)"},
+  {t:"Syllable",d:"a unit of pronunciation (one vowel sound).",x:"ca-fé has 2 syllables"},
+  {t:"Accent",d:"a mark that changes a letter’s sound or meaning.",x:"é, è, ê, ç, à"},
+  {t:"Agreement (accord)",d:"making words match in gender/number.",x:"une grande maison (f)"},
+  {t:"Cognate (mot transparent)",d:"a word spelled (almost) the same in both languages.",x:"table, important, nation"}
+ ]}]},
+{id:"cognates",part:"Préface",num:0,en:"Cognates — Free Vocabulary",fr:"Les mots transparents",
+ blurb:"Hundreds of French words are spelled almost like English — instant vocabulary. Only the pronunciation changes, so tap each one to hear how French says it.",
+ secs:[
+  {t:"note",html:'These are spelled (nearly) the same in English and French and mean the same thing — they’re “free” words. The catch is pronunciation, so <b>tap to hear</b> the French sound.'},
+  {t:"subh",h:"Identical spelling"},
+  {t:"chip",cards:[
+   {f:"table",e:"table"},{f:"important",e:"important"},{f:"possible",e:"possible"},{f:"impossible",e:"impossible"},
+   {f:"simple",e:"simple"},{f:"double",e:"double"},{f:"animal",e:"animal"},{f:"social",e:"social"},
+   {f:"normal",e:"normal"},{f:"total",e:"total"},{f:"capital",e:"capital"},{f:"central",e:"central"},
+   {f:"nature",e:"nature"},{f:"culture",e:"culture"},{f:"science",e:"science"},{f:"silence",e:"silence"},
+   {f:"distance",e:"distance"},{f:"intelligence",e:"intelligence"},{f:"restaurant",e:"restaurant"},{f:"client",e:"client"},
+   {f:"sport",e:"sport"},{f:"transport",e:"transport"},{f:"concert",e:"concert"},{f:"accident",e:"accident"},
+   {f:"moment",e:"moment"},{f:"document",e:"document"},{f:"image",e:"image"},{f:"message",e:"message"},
+   {f:"village",e:"village"},{f:"garage",e:"garage"},{f:"fruit",e:"fruit"},{f:"menu",e:"menu"},
+   {f:"taxi",e:"taxi"},{f:"film",e:"film"},{f:"terrible",e:"terrible"},{f:"visible",e:"visible"},
+   {f:"capable",e:"capable"},{f:"probable",e:"probable"}]},
+  {t:"subh",h:"Words in -tion (just say “-syon”)"},
+  {t:"chip",cards:[
+   {f:"nation",e:"nation"},{f:"information",e:"information"},{f:"situation",e:"situation"},{f:"question",e:"question"},
+   {f:"attention",e:"attention"},{f:"condition",e:"condition"},{f:"action",e:"action"},{f:"position",e:"position"},
+   {f:"station",e:"station"},{f:"option",e:"option"},{f:"section",e:"section"},{f:"solution",e:"solution"},
+   {f:"relation",e:"relation"},{f:"population",e:"population"},{f:"communication",e:"communication"},{f:"administration",e:"administration"}]},
+  {t:"subh",h:"Almost identical (small change)"},
+  {t:"chip",cards:[
+   {f:"téléphone",e:"telephone"},{f:"hôtel",e:"hotel"},{f:"problème",e:"problem"},{f:"différent",e:"different"},
+   {f:"présent",e:"present"},{f:"musique",e:"music"},{f:"banque",e:"bank"},{f:"classe",e:"class"},
+   {f:"exemple",e:"example"},{f:"gouvernement",e:"government"},{f:"université",e:"university"},{f:"famille",e:"family"},
+   {f:"nombre",e:"number"},{f:"langue",e:"language"},{f:"lettre",e:"letter"},{f:"adresse",e:"address"},
+   {f:"exercice",e:"exercise"},{f:"télévision",e:"television"},{f:"américain",e:"American"},{f:"important",e:"important"}]}
+ ]},
+{id:"contraires",part:"Vocabulaire",num:0,en:"Opposites — Paired",fr:"Les contraires",
+ blurb:"Antonym pairs learned together — recall one and the other comes free. Tap a card to hear the pair.",
+ secs:[
+  {t:"note",html:'Learning words in <b>opposite pairs</b> doubles recall. Tap a card to hear both.'},
+  {t:"subh",h:"Size & quantity"},
+  {t:"chip",cards:[
+   {f:"grand / petit",e:"big / small"},{f:"long / court",e:"long / short"},{f:"gros / mince",e:"fat / thin"},
+   {f:"haut / bas",e:"high / low"},{f:"lourd / léger",e:"heavy / light"},{f:"plein / vide",e:"full / empty"},
+   {f:"beaucoup / peu",e:"a lot / a little"}]},
+  {t:"subh",h:"Quality & state"},
+  {t:"chip",cards:[
+   {f:"bon / mauvais",e:"good / bad"},{f:"facile / difficile",e:"easy / hard"},{f:"chaud / froid",e:"hot / cold"},
+   {f:"propre / sale",e:"clean / dirty"},{f:"neuf / vieux",e:"new / old"},{f:"jeune / âgé",e:"young / elderly"},
+   {f:"riche / pauvre",e:"rich / poor"},{f:"fort / faible",e:"strong / weak"},{f:"rapide / lent",e:"fast / slow"},
+   {f:"vrai / faux",e:"true / false"},{f:"ouvert / fermé",e:"open / closed"},{f:"content / triste",e:"happy / sad"},
+   {f:"même / différent",e:"same / different"}]},
+  {t:"subh",h:"Place, time & direction"},
+  {t:"chip",cards:[
+   {f:"ici / là-bas",e:"here / over there"},{f:"devant / derrière",e:"in front / behind"},{f:"dessus / dessous",e:"above / below"},
+   {f:"gauche / droite",e:"left / right"},{f:"avant / après",e:"before / after"},{f:"tôt / tard",e:"early / late"},
+   {f:"toujours / jamais",e:"always / never"},{f:"tout / rien",e:"everything / nothing"},{f:"avec / sans",e:"with / without"},
+   {f:"entrer / sortir",e:"to enter / to exit"},{f:"monter / descendre",e:"to go up / down"},{f:"commencer / finir",e:"to begin / to finish"}]}
+ ]},
+{id:"speaking",part:"Entraînement",num:0,en:"Pronunciation Self-Test",fr:"Test de prononciation",special:"speak"}
+);
+
+/* ===== English “About this section” intros (THEORY) ===== */
+window.THEORY={
+ fondamentaux:"The operating system of French pronunciation — learn this and you can read words you have never seen before.",
+ contraires:"Opposites stored as pairs — the strongest way to lock in everyday adjectives and directions.",
+ cognates:"A huge memory shortcut: meaning is free, only the sound is new.",
+ alpha:"You spell names, emails and addresses aloud constantly — step one.",
+ sons:"French letters map to sounds reliably. Learn these and pronunciation becomes predictable.",
+ regles:"The decoding rules: with these you can read a word you’ve never seen and get it right. The most important page.",
+ nombres:"Numbers run through prices, dates, ages and phone numbers — and the listening test.",
+ temps:"Days, months and dates appear in every section, especially listening and writing.",
+ heure:"Telling time — common in listening dialogues and speaking role-plays.",
+ salut:"Greetings & politeness — the first thing the speaking examiner hears.",
+ presenter:"Introducing yourself is the backbone of Speaking Section A.",
+ genre:"Every noun is masculine or feminine; getting it right is a graded criterion.",
+ articles:"The little words before nouns; they signal gender and number.",
+ pronoms:"Pronouns let you stop repeating names and sound natural.",
+ verbes:"Verbs are the engine of every sentence; present + four past/future tenses cover most of A1–A2.",
+ negation:"Saying ‘not’ correctly — needed in every conversation.",
+ questions:"Asking questions is half of Speaking Section A.",
+ adjectifs:"Adjectives must agree with the noun — a marked accuracy point.",
+ prepositions:"Small linking words (à, de, dans…) learners drop or confuse.",
+ connecteurs:"Linking words make speech and writing flow — examiners reward them.",
+ object_pron:"Replacing objects (le, lui, leur…) is a B1 marker of natural French.",
+ y_en:"Two tiny pronouns that appear constantly in real French.",
+ relatives:"qui/que/dont/où join short sentences into smooth complex ones — needed for B1+ writing.",
+ comparatif:"Comparing things (more/less/the most) — common in opinion writing & speaking.",
+ futur:"The future tense — for plans and predictions.",
+ conditionnel:"‘Would’ — for politeness and hypotheses; very common in the speaking test.",
+ subjonctif:"The clearest B2 marker; examiners look for it in writing and speaking.",
+ plusqueparfait:"‘Had done’ — sequencing past events in narration and reading.",
+ hypothese:"If-sentences (3 types) — a core B1/B2 structure.",
+ passif:"The passive voice — common in the formal/news texts you’ll read.",
+ discours:"Reporting what others said — frequent in listening and writing.",
+ gerondif:"‘While/by doing’ — adds fluency and links actions elegantly.",
+ verbs1:"The most frequent verbs — learn these before almost anything else.",
+ verbs2:"More high-frequency verbs to round out everyday actions.",
+ verbs3:"Reflexive & extra verbs for daily routines and richer description.",
+ adj:"Everyday describing words — the heart of Speaking B and Writing B.",
+ adv:"Adverbs & quantity words that fine-tune what you say.",
+ people:"Family & people — a classic speaking topic.",
+ body:"Body & health — frequent in listening dialogues and role-plays.",
+ food:"Food & restaurant — the classic ordering/price role-play.",
+ house:"Home & furniture — common description topic.",
+ clothes:"Clothing — useful for descriptions and shopping role-plays.",
+ city:"City & places — directions and everyday navigation.",
+ travel:"Transport & travel — tickets, delays, directions (very common in listening).",
+ work:"Work & jobs — a frequent speaking/writing theme.",
+ school:"Education — common opinion-essay topic.",
+ nature:"Nature & environment — feeds B2 environment essays.",
+ animals:"Animals — lighter for TEF, good for breadth.",
+ weather:"Weather — appears in small talk and listening clips.",
+ time:"Time words — when things happen; essential glue.",
+ tech:"Technology & media — a modern B1/B2 discussion topic.",
+ money:"Money & shopping — prices, paying, the bill (role-plays).",
+ leisure:"Leisure & sport — easy speaking topic about yourself.",
+ emotions:"Emotions & personality — describe people and feelings.",
+ colours:"Colours, shapes & materials — basic description toolkit.",
+ countries:"Countries & nationalities — talk about yourself and the world.",
+ abstract1:"Everyday abstract nouns — needed to explain and argue.",
+ abstract2:"More abstract nouns for opinions and reasoning.",
+ expressions:"Survival phrases — the very first useful things to say.",
+ tef_phrases:"Ready-made exam phrases — memorise and reuse in Writing/Speaking.",
+ society:"Society & current affairs — typical opinion-essay material.",
+ daily_life:"Daily-routine phrases — natural, reusable speaking content.",
+ measures:"Quantities & measures — shopping, cooking, describing amounts.",
+ communication:"Words about talking & relationships.",
+ describing2:"More adjectives to add precision and nuance.",
+ doctor:"At the doctor — a common listening/role-play scenario.",
+ adv_verbs:"Formal/abstract verbs that lift writing to B2.",
+ acad_nouns:"Academic & abstract nouns — the language of essays.",
+ argument:"Linking words for argument — the skeleton of Writing B.",
+ nuance_adj:"Nuanced adjectives that make B2 writing precise.",
+ society2:"Society/politics/economy — advanced opinion-essay vocabulary.",
+ science2:"Environment/science/health — top B2 essay themes.",
+ idioms:"Set phrases that make you sound fluent and natural.",
+ discourse:"Discourse adverbs that organise advanced speech.",
+ culture:"Media, culture & ideas — for nuanced B2 discussion."
+};
+
+/* ===== Memory tips (TIPS) ===== */
+window.TIPS={
+ fondamentaux:"Don’t memorise words yet — master these 7 rules first, then every new word becomes predictable. Re-read this section once a week.",
+ contraires:"Drill them as a pair, both directions: see ‘grand’ → say ‘petit’, see ‘petit’ → say ‘grand’.",
+ regles:"Read every new word by rule FIRST, then tap to confirm. Drill the CaReFuL exception (c,r,f,l sounded) and the nasal rule daily.",
+ sons:"Record yourself on the nasals (an/on/in/un) — they’re what makes French sound French.",
+ nombres:"70/80/90 are maths: 60+10, 4×20, 4×20+10. Say them aloud until automatic.",
+ cognates:"You already KNOW the meaning — only practise the French sound. Easiest 100 words you’ll ever learn.",
+ genre:"Always learn a noun WITH le/la. Endings -tion/-té/-ette → usually feminine; -age/-ment/-eau → usually masculine.",
+ verbes:"Master être, avoir, aller, faire cold — they power most other tenses.",
+ subjonctif:"Trigger memory ‘WEIRDO’: Wish, Emotion, Impersonal (il faut que), Request, Doubt, Ou-conjunctions (bien que, pour que). After these + que → subjunctive.",
+ relatives:"qui = subject (a verb follows) · que = object (a noun/pronoun follows) · dont replaces ‘de’.",
+ y_en:"Y = à + place/thing · EN = de + thing, or a number/quantity.",
+ conditionnel:"Build it from the FUTUR stem + the imparfait endings — you already know both halves.",
+ hypothese:"Match the pair: si+présent→futur · si+imparfait→conditionnel · si+plus-que-parfait→conditionnel passé.",
+ object_pron:"Order when two combine: me/te/nous/vous → le/la/les → lui/leur → y → en.",
+ futur:"Just 11 irregular stems do most of the work: ser-, aur-, ir-, fer-, pourr-, voudr-, viendr-, verr-, devr-, saur-, faudr-.",
+ adjectifs:"Most adjectives go AFTER the noun; the few that go before fit ‘BAGS’ (Beauty, Age, Goodness, Size).",
+ articles:"de + le = du · à + le = au · à + les = aux. Practise these contractions until reflexive.",
+ verbs1:"Drill each verb in a tiny sentence (Je mange une pomme), not as a bare word.",
+ verbs2:"Tag each new verb to a passé-composé example so past tense comes for free.",
+ adj:"Learn adjectives in opposite pairs (grand/petit, chaud/froid) — half the effort, double the recall.",
+ food:"Walk through a real café order in your head: bonjour → je voudrais → l’addition.",
+ tef_phrases:"Memorise 8–10 of these cold; drop them into every practice essay and speaking answer.",
+ argument:"Pick ONE connector per function (cause: parce que · contrast: cependant · add: de plus · conclude: en somme) and overuse it until natural.",
+ abstract1:"Abstract nouns stick when tied to a concrete example (‘la liberté’ → an image of choosing).",
+ people:"Describe your own family aloud using each word — personal = memorable."
+};
+</script>
+<script>
+/* ============ APP ENGINE v4 (sidebar · theory/tips · speaking · audio cache) ============ */
+(function(){
+  "use strict";
+  try{
+  const SPK='<svg class="spk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>';
+  const esc=s=>(s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  const THEORY=window.THEORY||{}, TIPS=window.TIPS||{};
+
+  const PLAN=[
+   {t:"Préface", te:"Start here", s:"Comprendre l’examen & l’anglais utile", se:"Understand the exam & useful English", ids:["tef_overview","glossary","cognates"]},
+   {t:"Étape 0 — Les règles d’abord", te:"Step 0 — Rules first", s:"Pourquoi le français se prononce ainsi · le genre", se:"Why French sounds the way it does · gender", ids:["fondamentaux","regles","sons","genre","articles"]},
+   {t:"Étape 1 — Les bases", te:"Step 1 — First building blocks", s:"Alphabet, nombres, premières phrases", se:"Alphabet, numbers, first phrases", ids:["alpha","nombres","salut","presenter","expressions","pronoms","contraires"]},
+   {t:"Étape 2 — Grammaire A1", te:"Step 2 — Core grammar (A1)", s:"Les verbes et la phrase de base", se:"Verbs and the basic sentence", ids:["verbes","negation","questions","temps","heure"]},
+   {t:"Étape 3 — Vocabulaire quotidien (A2)", te:"Step 3 — Everyday vocabulary (A2)", s:"Le vocabulaire et la grammaire du quotidien", se:"Everyday words & grammar", ids:["verbs1","verbs2","people","daily_life","adjectifs","prepositions","connecteurs","adv","object_pron","adj","food","house","clothes","city","travel","work","school","money","measures","colours","weather","time","body","doctor","animals","nature","communication","verbs3"]},
+   {t:"Étape 4 — Consolidation (B1)", te:"Step 4 — Bridge grammar (B1)", s:"La grammaire-pont & le vocabulaire des idées", se:"Bridge grammar & idea vocabulary", ids:["y_en","relatives","comparatif","futur","conditionnel","leisure","emotions","tech","countries","abstract1","abstract2","society"]},
+   {t:"Étape 5 — Vers le B2 (NCLC 7+)", te:"Step 5 — Toward B2 (NCLC 7+)", s:"La grammaire qui fait la différence", se:"The grammar that makes the difference", ids:["subjonctif","plusqueparfait","hypothese","passif","discours","gerondif","argument","discourse","describing2","tef_phrases"]},
+   {t:"Étape 6 — B2 / C1", te:"Step 6 — B2 / C1", s:"Vocabulaire avancé & nuance", se:"Advanced vocabulary & nuance", ids:["adv_verbs","acad_nouns","nuance_adj","society2","science2","culture","idioms"]},
+   {t:"Entraînement quotidien", te:"Daily practice", s:"10 mots par jour", se:"10 words a day", ids:["speaking"]}
+  ];
+
+  /* ---- storage ---- */
+  const Store=(function(){ let ok=false,mem={};
+    try{ localStorage.setItem('__t','1'); localStorage.removeItem('__t'); ok=true; }catch(e){ ok=false; }
+    const KEY='tef_fr_nclc7_v1';
+    return { persistent:ok, load(){ if(ok){ try{ return JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){ return {}; } } return mem; },
+      save(o){ if(ok){ try{ localStorage.setItem(KEY,JSON.stringify(o)); }catch(e){} } else { mem=o; } } };
+  })();
+  const state=Object.assign({open:{},last:"",fav:[],rate:0.9,rev:false,speak:null}, Store.load());
+  if(!state.open||typeof state.open!=='object') state.open={};
+  const FAV=new Set(state.fav||[]);
+  let saveT; function saveState(){ clearTimeout(saveT); saveT=setTimeout(()=>Store.save(state),120); }
+
+  document.head.insertAdjacentHTML('beforeend','<style>'+
+   '.card{position:relative;padding:0;border:1px solid var(--line);border-radius:12px;background:var(--card);overflow:hidden}'+
+   '.card:hover{border-color:var(--accent)}'+
+   '.card .tap{display:block;width:100%;text-align:left;background:transparent;border:0;cursor:pointer;font-family:var(--sans);padding:9px 30px 9px 32px;position:relative;color:inherit}'+
+   '.card .tap .spk{position:absolute;left:10px;top:10px;width:15px;height:15px;color:var(--accent);opacity:.85}'+
+   '.card .fr{display:block;font-family:var(--serif);font-size:16px;font-weight:600;color:var(--ink);line-height:1.2;word-break:break-word}'+
+   '.card .ph{display:block;font-size:11px;color:var(--accent-ink);margin-top:1px}'+
+   '.card .en{display:block;font-size:12px;color:var(--ink-2);margin-top:2px;word-break:break-word}'+
+   'body.h-tr .card .en,body.h-tr .conj li .fre,body.h-all .card .en,body.h-all .conj li .fre{display:none}'+
+   'body.h-ex .theory,body.h-ex .tip,body.h-ex .blurb,body.h-all .theory,body.h-all .tip,body.h-all .blurb{display:none}'+
+   'body.h-all .note,body.h-all .key,body.h-all .tef,body.h-all .gloss{display:none}'+
+   'body.h-all .deck-head .ttf{display:none}'+
+   '.card .fav{position:absolute;right:2px;top:1px;border:0;background:transparent;cursor:pointer;font-size:15px;line-height:1;color:#D6CFBE;padding:5px;z-index:3}'+
+   '.card .fav:hover{color:#E8B100}.card .fav.on{color:#E8B100}'+
+  '</style>');
+
+  /* ---- AUDIO (robust · male/female · cached · instant replay) ---- */
+  const synth=('speechSynthesis' in window)?window.speechSynthesis:null;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const ONFILE=location.protocol==='file:';
+  let rate=state.rate||0.9, gender=(state.voice==='m'?'m':'f'), warmed=false;
+  let voiceF=null, voiceM=null, frAny=null, frLocal=false, engine='online';
+  const MNAMES=/(thomas|paul|claude|henri|mathieu|nicolas|daniel|yannick|s[eé]bastien|guillaume|jacques|alain)/i;
+  const FNAMES=/(am[eé]lie|aur[eé]lie|audrey|marie|julie|hortense|c[eé]line|l[eé]a|virginie|chantal|sandrine|charlotte)/i;
+  function ttsURL(t){ return 'https://translate.google.com/translate_tts?ie=UTF-8&tl=fr&client=tw-ob&q='+encodeURIComponent(t); }
+  function seURL(t,v){ return 'https://api.streamelements.com/kappa/v2/speech?voice='+v+'&text='+encodeURIComponent(t); }
+  function pickVoices(){ if(!synth) return; const vs=synth.getVoices()||[];
+    const fr=vs.filter(v=>/(^|[-_])fr([-_]|$)/i.test(v.lang)||/fr[-_]?(fr|ca)/i.test(v.lang));
+    if(!fr.length){ voiceF=voiceM=frAny=null; frLocal=false; return; }
+    const males=fr.filter(v=>MNAMES.test(v.name)), females=fr.filter(v=>FNAMES.test(v.name));
+    const prefFR=a=>a.find(v=>/fr[-_]?fr/i.test(v.lang))||a.find(v=>/fr[-_]?ca/i.test(v.lang))||a[0];
+    voiceM=males.length?prefFR(males):null; voiceF=females.length?prefFR(females):prefFR(fr);
+    frAny=prefFR(fr); frLocal=!!(frAny&&frAny.localService); }
+  function sysVoice(){ return gender==='m'?(voiceM||voiceF||frAny):(voiceF||frAny); }
+  function chooseEngine(){ engine=(synth&&frAny&&(frLocal||!ONFILE))?'system':'online'; updateVoiceUI(); }
+  function updateVoiceUI(){ const s=document.getElementById('voicestatus'); if(!s) return; const g=gender==='m'?'homme':'femme'; const sv=sysVoice();
+    s.innerHTML=(engine==='system'&&sv)?('Voix : <b>'+g+'</b> · système'+(frLocal?' · hors-ligne':'')):('Voix : <b>'+g+'</b> · en ligne'); }
+  function initVoices(){ if(!synth){ chooseEngine(); return; } pickVoices();
+    if((synth.getVoices()||[]).length){ chooseEngine(); }
+    else{ synth.onvoiceschanged=()=>{ pickVoices(); chooseEngine(); };
+      let n=0; const t=setInterval(()=>{ pickVoices(); if((synth.getVoices()||[]).length||++n>14){ clearInterval(t); chooseEngine(); } },140); } }
+  function warm(){ if(warmed||!synth) return; warmed=true; try{ const u=new SpeechSynthesisUtterance(' '); u.volume=0; synth.speak(u); }catch(e){} }
+  const cache=new Map(); let lastA=null;
+  function stopAudio(){ try{ if(synth) synth.cancel(); }catch(e){} try{ if(lastA){ lastA.pause(); } }catch(e){} }
+  function srcsFor(t){ return gender==='m' ? [seURL(t,'Mathieu'),ttsURL(t)] : [seURL(t,'Celine'),ttsURL(t)]; }
+  function preloadOnline(t){ if(engine!=='online') return; const k=gender+'|'+t; if(cache.has(k)) return;
+    try{ const a=new Audio(srcsFor(t)[0]); a.preload='auto'; a.addEventListener('canplaythrough',()=>{ if(!cache.has(k)) cache.set(k,a); },{once:true}); a.load(); }catch(e){} }
+  function playOnline(t){ try{ if(lastA) lastA.pause(); }catch(e){}
+    const k=gender+'|'+t, cached=cache.get(k);
+    if(cached){ lastA=cached; cached.playbackRate=(rate<=0.6?0.74:1); try{cached.currentTime=0;}catch(e){}
+      const p=cached.play(); if(p&&p.catch) p.catch(()=>{ cache.delete(k); freshChain(t,k); }); return; }
+    freshChain(t,k); }
+  function freshChain(t,k){ const srcs=srcsFor(t); let i=0;
+    (function attempt(){ if(i>=srcs.length){ showHint('Audio en ligne indisponible — vérifiez la connexion ou « ⇄ Source ».'); return; }
+      const a=new Audio(srcs[i++]); lastA=a; a.playbackRate=(rate<=0.6?0.74:1); let ok=false;
+      a.addEventListener('playing',()=>{ ok=true; cache.set(k,a); },{once:true});
+      a.onerror=()=>{ if(!ok) attempt(); };
+      const p=a.play(); if(p&&p.catch) p.catch(()=>{ if(!ok) attempt(); });
+      setTimeout(()=>{ if(!ok){ try{a.pause();}catch(e){} attempt(); } },1500); })(); }
+  function speakSystem(t){ if(!synth) return false; const v=sysVoice(); if(!v) return false; try{ synth.cancel(); }catch(e){}
+    const u=new SpeechSynthesisUtterance(t); u.voice=v; u.lang=v.lang||'fr-FR'; u.rate=rate; u.pitch=(gender==='m'?0.9:1.0); synth.speak(u); return true; }
+  function speak(t){ if(!t) return; warm(); if(engine==='system'){ if(!speakSystem(t)) playOnline(t); } else playOnline(t); }
+  function setGender(g){ stopAudio(); gender=(g==='m'?'m':'f'); state.voice=gender; saveState();
+    var f=document.getElementById('vx-f'),m=document.getElementById('vx-m'); if(f)f.setAttribute('aria-pressed',gender==='f'); if(m)m.setAttribute('aria-pressed',gender==='m');
+    updateVoiceUI(); setTimeout(()=>speak(gender==='m'?'Voix masculine.':'Voix féminine.'),60); }
+  let hintT; function showHint(m){ const h=document.getElementById('hint'); if(!h) return; h.textContent=m; clearTimeout(hintT); hintT=setTimeout(()=>{ if(h.textContent===m)h.textContent=''; },6000); }
+
+  /* ---- card / section render ---- */
+  function cardHTML(fr,ph,en){ const on=FAV.has(fr)?' on':'';
+    return '<div class="card"><button class="tap" data-fr="'+esc(fr)+'" aria-label="Écouter : '+esc(fr)+'">'+SPK+
+      '<span class="fr">'+esc(fr)+'</span>'+(ph?'<span class="ph">'+esc(ph)+'</span>':'')+(en?'<span class="en">'+esc(en)+'</span>':'')+
+      '</button><button class="fav'+on+'" data-fav="'+esc(fr)+'" aria-label="Favori" title="Bookmark">★</button></div>'; }
+  function sortKey(fr){ return fr.toLowerCase().replace(/^(les |le |la |l’|l'|un |une |des |du |de la |de l’|de l')/,'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim(); }
+  function head2(key){ let h=''; if(THEORY[key]) h+='<div class="theory"><b>About:</b> '+esc(THEORY[key])+'</div>'; if(TIPS[key]) h+='<div class="tip"><b>💡 Tip:</b> '+esc(TIPS[key])+'</div>'; return h; }
+  function secHTML(s){
+    if(s.t==='note') return '<div class="note">'+s.html+'</div>';
+    if(s.t==='key') return '<div class="key">'+s.html+'</div>';
+    if(s.t==='tef') return '<div class="tef">'+s.html+'</div>';
+    if(s.t==='gloss') return s.items.map(g=>'<div class="gloss"><b>'+esc(g.t)+'</b> — '+esc(g.d)+'<span class="ex">'+esc(g.x)+'</span></div>').join('');
+    if(s.t==='chip') return '<div class="cards">'+s.cards.map(c=>cardHTML(c.f,c.p||'',c.e||'')).join('')+'</div>';
+    if(s.t==='conj') return '<div class="conj"><div class="v" data-fr="'+esc(s.inf)+'"><span class="vi">'+esc(s.inf)+'</span><span class="vp">'+esc(s.infp||'')+'</span><span class="ve">'+esc(s.e||'')+'</span></div><ul>'+
+        s.rows.map(r=>'<li data-fr="'+esc(r.f)+'">'+SPK+'<span class="frm">'+esc(r.f)+'</span><span class="frp">'+esc(r.p||'')+'</span><span class="fre">'+esc(r.e||'')+'</span></li>').join('')+'</ul></div>';
+    return ''; }
+  function renderLesson(m){ let h=head2(m.id); if(m.blurb) h+='<div class="blurb">'+esc(m.blurb)+'</div>';
+    let openBox=false;
+    m.secs.forEach(s=>{
+      if(s.t==='subh'){ if(openBox) h+='</div></section>'; h+='<section class="topic"><div class="subh">'+esc(s.h)+'</div><div class="topic-body">'; openBox=true; }
+      else h+=secHTML(s);
+    });
+    if(openBox) h+='</div></section>';
+    return h; }
+  function vocabPairs(d){ return d.items.split('|').map(x=>x.split('=')).filter(p=>p.length>=2); }
+  function rhymeKey(fr){ const k=sortKey(fr); return k.split('').reverse().join(''); }
+  function renderVocab(d,key){ const pairs=vocabPairs(d).slice().sort((a,b)=>rhymeKey(a[0]).localeCompare(rhymeKey(b[0]),'fr')||sortKey(a[0]).localeCompare(sortKey(b[0]),'fr'));
+    return head2(key)+'<div class="cards">'+pairs.map(p=>cardHTML(p[0],'',p.slice(1).join('='))).join('')+'</div>'; }
+
+  /* ---- deck list from PLAN ---- */
+  const LMAP={},VMAP={}; (window.LESSON||[]).forEach(m=>LMAP[m.id]=m); Object.keys(window.VOCAB||{}).forEach(k=>VMAP[k]=window.VOCAB[k]);
+  const deckList=[],usedK={};
+  PLAN.forEach(st=>st.ids.forEach(id=>{ if(LMAP[id]){ deckList.push({key:id,stage:st.t,stageEn:st.te,sub:st.s,subEn:st.se,kind:'lesson',mod:LMAP[id],tfr:LMAP[id].fr,ten:LMAP[id].en}); usedK[id]=1; }
+    else if(VMAP[id]){ deckList.push({key:id,stage:st.t,stageEn:st.te,sub:st.s,subEn:st.se,kind:'vocab',deck:VMAP[id],tfr:VMAP[id].fr,ten:VMAP[id].title}); usedK[id]=1; } }));
+  (window.LESSON||[]).forEach(m=>{ if(!usedK[m.id]) deckList.push({key:m.id,stage:"Autres",stageEn:"Other",sub:"",subEn:"",kind:'lesson',mod:m,tfr:m.fr,ten:m.en}); });
+  Object.keys(VMAP).forEach(k=>{ if(!usedK[k]) deckList.push({key:k,stage:"Autres",stageEn:"Other",sub:"",subEn:"",kind:'vocab',deck:VMAP[k],tfr:VMAP[k].fr,ten:VMAP[k].title}); });
+  function deckCount(D){ if(D.mod&&D.mod.special) return 0; if(D.kind==='vocab') return vocabPairs(D.deck).length; let n=0; D.mod.secs.forEach(s=>{ if(s.t==='chip')n+=s.cards.length; else if(s.t==='conj')n+=s.rows.length+1; }); return n; }
+
+  /* ---- search index + speaking pool ---- */
+  const INDEX=[],FRMAP={},SPOOL=[],seenp={}; function idx(f,p,e){ INDEX.push({f,p:p||'',e:e||''}); if(!(f in FRMAP)) FRMAP[f]=e||''; }
+  (window.LESSON||[]).forEach(m=>(m.secs||[]).forEach(s=>{ if(s.t==='chip') s.cards.forEach(c=>idx(c.f,c.p,c.e)); else if(s.t==='conj'){ idx(s.inf,s.infp,s.e); s.rows.forEach(r=>idx(r.f,r.p,r.e)); } }));
+  deckList.filter(D=>D.kind==='vocab').forEach(D=>vocabPairs(D.deck).forEach(p=>{ const fr=p[0],en=p.slice(1).join('='); idx(fr,'',en); if(fr.length<=24&&!seenp[fr]){ seenp[fr]=1; SPOOL.push({fr,en}); } }));
+
+  /* ---- DOM build ---- */
+  const app=document.getElementById('app'), results=document.getElementById('results'), favview=document.getElementById('favview'), empty=document.getElementById('empty');
+  const nav=document.getElementById('decknav'); const openers={}, stageCount={}, stageAnchors={}; let curStage=null;
+  deckList.forEach(D=>{
+    if(D.stage!==curStage){ curStage=D.stage; stageCount[D.stage]=0;
+      const ph=document.createElement('div'); ph.className='parthead'; ph.style.scrollMarginTop='70px';
+      ph.innerHTML='<span class="ui-en">'+esc(D.stageEn||D.stage)+'</span><span class="ui-fr">'+esc(D.stage)+'</span>'+((D.subEn||D.sub)?'<span class="psub"><span class="ui-en">'+esc(D.subEn||'')+'</span><span class="ui-fr">'+esc(D.sub||'')+'</span></span>':''); app.appendChild(ph); stageAnchors[D.stage]=ph; }
+    stageCount[D.stage]++; const num=stageCount[D.stage];
+    const sec=document.createElement('section'); sec.className='deck'; sec.id='d-'+D.key;
+    const hd=document.createElement('button'); hd.className='deck-head'; hd.setAttribute('aria-expanded','false');
+    hd.innerHTML='<span class="num">'+num+'</span><span class="tt"><span class="ui-en">'+esc(D.ten)+'</span><span class="ui-fr">'+esc(D.tfr)+'</span><span class="ttf"><span class="ui-en">'+esc(D.tfr)+'</span><span class="ui-fr">'+esc(D.ten)+'</span></span></span>'+(deckCount(D)?'<span class="cnt">'+deckCount(D)+'</span>':'')+'<svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
+    const body=document.createElement('div'); body.className='deck-body'; sec.appendChild(hd); sec.appendChild(body); app.appendChild(sec);
+    let rendered=false;
+    function open(silent){ if(!rendered){ if(D.mod&&D.mod.special==='speak'){ body.innerHTML=speakShell(); wireSpeak(body); } else { body.innerHTML=D.kind==='vocab'?renderVocab(D.deck,D.key):renderLesson(D.mod); } rendered=true; } sec.classList.add('open'); hd.setAttribute('aria-expanded','true'); state.open[D.key]=1; if(!silent) state.last=D.key; saveState(); }
+    function close(){ sec.classList.remove('open'); hd.setAttribute('aria-expanded','false'); delete state.open[D.key]; saveState(); }
+    hd.onclick=()=>{ sec.classList.contains('open')?close():open(false); };
+    openers[D.key]=open;
+  });
+
+  /* resume */
+  const saved=Object.keys(state.open||{}).filter(k=>openers[k]);
+  if(saved.length){ saved.forEach(k=>openers[k](true)); } else if(deckList[1]){ openers[deckList[1].key](false); }
+  if(state.last&&document.getElementById('d-'+state.last)){ setTimeout(()=>{ document.getElementById('d-'+state.last).scrollIntoView({block:'start'}); },90); }
+
+  /* sidebar nav */
+  let curS2=null;
+  deckList.forEach(D=>{ if(D.stage!==curS2){ curS2=D.stage; const t=document.createElement('div'); t.className='st'; t.innerHTML='<span class="ui-en">'+esc((D.stageEn||D.stage).replace(/ —.*$/,'').replace(/—.*$/,''))+'</span><span class="ui-fr">'+esc(D.stage.replace(/ —.*$/,''))+'</span>'; nav.appendChild(t); }
+    const a=document.createElement('a'); a.href='#'; a.innerHTML='<span class="ui-en">'+esc(D.ten)+'</span><span class="ui-fr">'+esc(D.tfr)+'</span>'; a.onclick=e=>{ e.preventDefault(); if(mode!=='decks'){ search.value=''; setMode('decks'); } openers[D.key](false); document.getElementById('d-'+D.key).scrollIntoView({behavior:'smooth',block:'start'}); closeNav(); }; nav.appendChild(a); });
+
+  /* ---- favourites + search ---- */
+  const search=document.getElementById('search'), searchx=document.getElementById('searchx');
+  const favbtn=document.getElementById('favbtn'); function updateFavBtn(){ const n=document.getElementById('favn'); if(n) n.textContent=' ('+FAV.size+')'; favbtn.classList.toggle('on',mode==='fav'); } 
+  let mode='decks';
+  function setMode(m){ mode=m; app.style.display=(m==='decks')?'':'none'; results.style.display=(m==='search')?'':'none'; favview.style.display=(m==='fav')?'':'none'; if(m!=='search') empty.style.display='none'; updateFavBtn(); }
+  function renderFav(){ const list=[...FAV].map(fr=>({fr,en:FRMAP[fr]||''})).sort((a,b)=>sortKey(a.fr).localeCompare(sortKey(b.fr),'fr'));
+    favview.innerHTML=list.length?'<div class="subh">★ '+list.length+' favori'+(list.length>1?'s':'')+'</div><div class="cards">'+list.map(c=>cardHTML(c.fr,'',c.en)).join('')+'</div>':'<div class="theory">Aucun favori. Touchez l’étoile ★ sur une carte pour la sauvegarder ici.</div>'; }
+  favbtn.onclick=()=>{ if(mode==='fav'){ setMode('decks'); } else { search.value=''; searchx.style.display='none'; renderFav(); setMode('fav'); window.scrollTo({top:0,behavior:'smooth'}); closeNav(); } };
+  updateFavBtn();
+  function toggleFav(fr){ if(FAV.has(fr)) FAV.delete(fr); else FAV.add(fr); state.fav=[...FAV]; saveState();
+    document.querySelectorAll('[data-fav]').forEach(b=>{ if(b.getAttribute('data-fav')===fr) b.classList.toggle('on',FAV.has(fr)); }); updateFavBtn(); if(mode==='fav') renderFav(); }
+  function doSearch(){ const q=(search.value||'').trim().toLowerCase();
+    if(!q){ searchx.style.display='none'; if(mode==='search') setMode('decks'); return; }
+    searchx.style.display='block'; const m=INDEX.filter(it=>it.f.toLowerCase().includes(q)||it.e.toLowerCase().includes(q)); setMode('search');
+    if(!m.length){ results.style.display='none'; empty.style.display='block'; return; }
+    empty.style.display='none'; results.style.display='';
+    results.innerHTML='<div class="subh">'+m.length+' résultat'+(m.length>1?'s':'')+'</div><div class="cards">'+m.slice(0,500).map(it=>cardHTML(it.f,it.p,it.e)).join('')+'</div>'+(m.length>500?'<div class="key">… 500 premiers résultats.</div>':''); }
+  search.addEventListener('input',doSearch);
+  searchx.addEventListener('click',()=>{ search.value=''; doSearch(); search.focus(); });
+
+  /* ---- speaking trainer ---- */
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  function micOK(){ return !!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia&&window.MediaRecorder); }
+  function dayId(){ const d=new Date(); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); }
+  function hashStr(s){ let h=2166136261; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619);} return h>>>0; }
+  function pick10(seed){ let x=seed||1; const n=SPOOL.length,out=[],u={}; function r(){ x^=x<<13;x^=x>>>17;x^=x<<5;x>>>=0;return x/4294967296;} let g=0; while(out.length<10&&out.length<n&&g<500){ g++; const i=Math.floor(r()*n); if(!u[i]){u[i]=1;out.push(SPOOL[i]);} } return out; }
+  function ensureDay(){ const id=dayId(); let sp=state.speak; if(!sp){ sp=state.speak={day:"",set:[],hist:[]}; } if(!sp.hist) sp.hist=[];
+    if(sp.day!==id){ if(sp.set&&sp.set.length){ sp.hist.unshift({date:sp.day,words:sp.set.map(w=>({fr:w.fr,en:w.en}))}); sp.hist=sp.hist.slice(0,90); }
+      sp.day=id; sp.set=pick10(hashStr(id)); saveState(); } return sp; }
+  function chatPrompt(words){ return "I'm preparing for the TEF Canada French exam. I will pronounce these 10 French words — using voice mode, listen and evaluate how close my pronunciation is to a native French speaker. Give a score out of 100 for each word and an overall score, plus one short tip per word. Words: "+words.join(", ")+"."; }
+  function chatURL(words){ return 'https://chatgpt.com/?q='+encodeURIComponent(chatPrompt(words)); }
+  function fallbackCopy(txt){ try{ const ta=document.createElement('textarea'); ta.value=txt; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.focus(); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); showHint('Copié ✓ / Copied ✓'); }catch(e){ showHint('Sélectionnez le texte pour le copier.'); } }
+  function copyText(txt){ try{ if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(()=>showHint('Copié ✓ / Copied ✓'),()=>fallbackCopy(txt)); return; } }catch(e){} fallbackCopy(txt); }
+  /* ---- read-aloud (system TTS preferred; great on iOS Safari) ---- */
+  let reading=false, readBtn=null;
+  function setReadLabel(b,on){ if(!b) return; if(on){ if(!b.dataset.orig) b.dataset.orig=b.innerHTML; b.innerHTML='<span class="ui-en">⏹ Stop</span><span class="ui-fr">⏹ Arrêter</span>'; } else if(b.dataset.orig){ b.innerHTML=b.dataset.orig; b.removeAttribute('data-orig'); } }
+  function stopRead(){ reading=false; try{ if(synth) synth.cancel(); }catch(e){} try{ if(lastA) lastA.pause(); }catch(e){} setReadLabel(readBtn,false); readBtn=null; }
+  function playOnceOnline(t,onend){ const srcs=srcsFor(t); let i=0; (function a(){ if(i>=srcs.length){ onend&&onend(); return; } const au=new Audio(srcs[i++]); lastA=au; au.playbackRate=(rate<=0.6?0.74:1); au.onended=()=>onend&&onend(); au.onerror=()=>a(); const p=au.play(); if(p&&p.catch)p.catch(()=>a()); })(); }
+  function readList(list,btn){ if(reading){ stopRead(); return; } list=(list||[]).filter(Boolean); if(!list.length) return; warm(); reading=true; readBtn=btn||null; setReadLabel(readBtn,true);
+    let i=0; (function next(){ if(!reading||i>=list.length){ stopRead(); return; } const t=list[i++];
+      if(engine==='system'&&synth&&sysVoice()){ const v=sysVoice(); const u=new SpeechSynthesisUtterance(t); u.voice=v; u.lang=v.lang||'fr-FR'; u.rate=rate; u.pitch=(gender==='m'?0.9:1); u.onend=()=>setTimeout(next,260); u.onerror=()=>setTimeout(next,260); try{synth.cancel();}catch(e){} synth.speak(u); }
+      else { playOnceOnline(t,()=>setTimeout(next,180)); } })(); }
+  function speakShell(){
+    return '<div class="spk-wrap">'+
+    '<div class="theory"><b>About:</b> 10 new words every day to practise out loud — tap a word to hear the native model. ChatGPT can’t hear you through a link, so tap <b>Open in ChatGPT</b> and switch on <b>voice mode</b> in the app to be scored, or copy the prompt and paste it. The set changes every 24 h; past sets are saved below.</div>'+
+    '<div class="spk-day" id="spkDay"></div><div id="spkRows"></div>'+
+    '<div class="spk-actions"><a class="pill gpt" id="spkGpt" target="_blank" rel="noopener">🤖 <span class="ui-en">Open in ChatGPT</span><span class="ui-fr">Ouvrir dans ChatGPT</span></a>'+
+    '<button class="pill" id="spkCopy">⧉ <span class="ui-en">Copy prompt + words</span><span class="ui-fr">Copier le prompt</span></button></div>'+
+    '<div class="spk-prompt" id="spkPrompt"></div>'+
+    '<div class="spk-hist"><div class="subh"><span class="ui-en">Previous days</span><span class="ui-fr">Séries précédentes</span></div><div id="spkHist"></div></div></div>'; }
+  function wireSpeak(container){
+    const sp=ensureDay();
+    container.querySelector('#spkDay').innerHTML='<span class="ui-en">Today’s words ('+esc(sp.day)+') — resets tomorrow:</span><span class="ui-fr">Mots du jour ('+esc(sp.day)+') — se réinitialise demain :</span>';
+    const words=sp.set.map(w=>w.fr);
+    container.querySelector('#spkRows').innerHTML=sp.set.map(w=>'<div class="spk-row"><span class="spk-w" data-fr="'+esc(w.fr)+'">'+esc(w.fr)+'</span><span class="spk-e">'+esc(w.en)+'</span></div>').join('');
+    container.querySelector('#spkPrompt').textContent=chatPrompt(words);
+    const g=container.querySelector('#spkGpt'); if(g) g.href=chatURL(words);
+    container.querySelector('#spkCopy').onclick=()=>copyText(chatPrompt(words));
+    const H=container.querySelector('#spkHist'), hs=sp.hist||[];
+    H.innerHTML=hs.length?hs.map((h,k)=>'<div class="h"><span>'+esc(h.date)+' · '+(h.words?h.words.length:0)+' mots</span><span class="hbtns"><a class="mini" target="_blank" rel="noopener" href="'+esc(chatURL((h.words||[]).map(w=>w.fr)))+'" title="ChatGPT">🤖</a> <button class="mini" data-hcopy="'+k+'" title="Copier">⧉</button></span></div>').join(''):'<div class="key"><span class="ui-en">No past sets yet — tomorrow’s refresh will archive today’s words here.</span><span class="ui-fr">Pas encore de séries — la liste d’aujourd’hui sera archivée ici demain.</span></div>';
+    H.querySelectorAll('[data-hcopy]').forEach(b=>b.onclick=()=>{ const h=hs[+b.getAttribute('data-hcopy')]; copyText(chatPrompt((h.words||[]).map(w=>w.fr))); });
+  }
+  document.getElementById('speakBtn').onclick=()=>{ openers['speaking'](false); const el=document.getElementById('d-speaking'); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); closeNav(); };
+
+  /* ---- global tap (audio + star + reveal) + preload ---- */
+  document.addEventListener('click',e=>{
+    const fav=e.target.closest('[data-fav]'); if(fav){ toggleFav(fav.getAttribute('data-fav')); return; }
+    const tap=e.target.closest('[data-fr]'); if(!tap) return; if(tap.closest('.spk-w')&&e.target.closest('button')) return;
+    const fr=tap.getAttribute('data-fr'); const card=tap.closest('.card')||tap;
+    if(!reduce){ card.classList.remove('ripple'); void card.offsetWidth; card.classList.add('ripple'); }
+    speak(fr);
+  });
+  function onHover(e){ const t=e.target.closest('[data-fr]'); if(t) preloadOnline(t.getAttribute('data-fr')); }
+  document.addEventListener('pointerenter',onHover,true);
+  document.addEventListener('touchstart',onHover,{capture:true,passive:true});
+
+  /* ---- controls ---- */
+  function setRate(r){ stopAudio(); rate=r; state.rate=r; saveState(); document.getElementById('spd-norm').setAttribute('aria-pressed',r===0.9); document.getElementById('spd-slow').setAttribute('aria-pressed',r===0.6); }
+  document.getElementById('spd-norm').onclick=()=>setRate(0.9); document.getElementById('spd-slow').onclick=()=>setRate(0.6); setRate(rate);
+  document.getElementById('voicetoggle').onclick=function(){ stopAudio(); engine=(engine==='system')?'online':'system'; updateVoiceUI(); setTimeout(()=>speak('Vous entendez ma voix ?'),60); showHint(engine==='system'?'Source : voix du système (hors-ligne si installée).':'Source : voix en ligne (internet requis).'); };
+  document.getElementById('vx-f').onclick=()=>setGender('f'); document.getElementById('vx-m').onclick=()=>setGender('m');
+  (function(){ var f=document.getElementById('vx-f'),m=document.getElementById('vx-m'); if(f)f.setAttribute('aria-pressed',gender==='f'); if(m)m.setAttribute('aria-pressed',gender==='m'); })();
+  /* English display toggles — instant via body classes */
+  const disp=state.disp||(state.disp={tr:false,ex:false,all:false});
+  function setPressed(id,v){ var b=document.getElementById(id); if(b) b.setAttribute('aria-pressed',!!v); }
+  function applyDisp(){ document.body.classList.toggle('h-tr',!!disp.tr); document.body.classList.toggle('h-ex',!!disp.ex); document.body.classList.toggle('h-all',!!disp.all); setPressed('tg-tr',disp.tr); setPressed('tg-ex',disp.ex); setPressed('tg-all',disp.all); }
+  document.getElementById('tg-tr').onclick=()=>{ disp.tr=!disp.tr; if(!disp.tr) disp.all=false; saveState(); applyDisp(); };
+  document.getElementById('tg-ex').onclick=()=>{ disp.ex=!disp.ex; if(!disp.ex) disp.all=false; saveState(); applyDisp(); };
+  document.getElementById('tg-all').onclick=()=>{ disp.all=!disp.all; disp.tr=disp.all; disp.ex=disp.all; saveState(); applyDisp(); };
+  applyDisp();
+
+  /* ---- mobile drawer ---- */
+  const menuBtn=document.getElementById('menuBtn'), scrim=document.getElementById('scrim');
+  function closeNav(){ document.body.classList.remove('nav-open'); }
+  menuBtn.onclick=()=>document.body.classList.toggle('nav-open');
+  scrim.onclick=closeNav;
+
+  if(!Store.persistent){ const n=document.createElement('div'); n.className='note'; n.style.margin='10px 0'; n.innerHTML='Note: bookmarks, your daily words & resume save only when you open the <b>downloaded file</b> (not in this preview).'; app.insertBefore(n, app.firstChild); }
+
+  initVoices();
+  try{ var bb=document.getElementById('boot'); if(bb){ bb.style.background='#2C7A44'; bb.textContent='Application prête ✓ — '+deckList.length+' sections chargées. Touchez une carte pour entendre le son.'; setTimeout(function(){ bb.style.display='none'; },2600); } }catch(e){}
+  }catch(err){ try{ var bx=document.getElementById('boot'); if(bx){ bx.style.background='#9A1239'; bx.textContent='Erreur de démarrage : '+((err&&err.message)||err); } }catch(e){} try{ var a=document.getElementById('app'); if(a&&!a.children.length){ a.innerHTML='<div style="padding:24px;font-size:13.5px;color:#9A1239;line-height:1.6">Le contenu n’a pas pu se charger ici. Ouvrez le fichier dans <b>Safari</b> ou <b>Chrome</b> (ou ajoutez-le à l’écran d’accueil).<br><span style="opacity:.6">détail : '+((err&&err.message)||err)+'</span></div>'; } }catch(e){} }
+})();
+</script>
+</body>
+</html>
